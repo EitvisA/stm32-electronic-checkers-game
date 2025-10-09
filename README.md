@@ -39,3 +39,4 @@ Interactive LED checkers game built with STM32 microcontroller and Bluetooth con
 - Implement automatic rule checking (valid moves, captures)
 - Improve mobile interface for sending LED commands
 - Optimize LED blinking animations for smoother visual effect
+- Redesign hardware: replace direct GPIO LED control with shift registers for better scalability and simplified wiring
