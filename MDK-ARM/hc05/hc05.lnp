@@ -1,0 +1,27 @@
+--cpu=Cortex-M4.fp.sp
+"hc05\startup_stm32f446xx.o"
+"hc05\main.o"
+"hc05\stm32f4xx_it.o"
+"hc05\stm32f4xx_hal_msp.o"
+"hc05\led_control.o"
+"hc05\stm32f4xx_hal_tim.o"
+"hc05\stm32f4xx_hal_tim_ex.o"
+"hc05\stm32f4xx_hal_uart.o"
+"hc05\stm32f4xx_hal_rcc.o"
+"hc05\stm32f4xx_hal_rcc_ex.o"
+"hc05\stm32f4xx_hal_flash.o"
+"hc05\stm32f4xx_hal_flash_ex.o"
+"hc05\stm32f4xx_hal_flash_ramfunc.o"
+"hc05\stm32f4xx_hal_gpio.o"
+"hc05\stm32f4xx_hal_dma_ex.o"
+"hc05\stm32f4xx_hal_dma.o"
+"hc05\stm32f4xx_hal_pwr.o"
+"hc05\stm32f4xx_hal_pwr_ex.o"
+"hc05\stm32f4xx_hal_cortex.o"
+"hc05\stm32f4xx_hal.o"
+"hc05\stm32f4xx_hal_exti.o"
+"hc05\system_stm32f4xx.o"
+--library_type=microlib --strict --scatter "hc05\hc05.sct"
+--summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list "hc05.map" -o hc05\hc05.axf

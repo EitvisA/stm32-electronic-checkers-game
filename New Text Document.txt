@@ -1,0 +1,2604 @@
+/* USER CODE BEGIN Header */
+/**
+  ******************************************************************************
+  * @file           : main.c
+  * @brief          : Main program body
+  ******************************************************************************
+  * @attention
+  *
+  * <h2><center>&copy; Copyright (c) 2020 STMicroelectronics.
+  * All rights reserved.</center></h2>
+  *
+  * This software component is licensed by ST under BSD 3-Clause license,
+  * the "License"; You may not use this file except in compliance with the
+  * License. You may obtain a copy of the License at:
+  *                        opensource.org/licenses/BSD-3-Clause
+  *
+  ******************************************************************************
+  */
+/* USER CODE END Header */
+/* Includes ------------------------------------------------------------------*/
+#include "main.h"
+
+/* Private includes ----------------------------------------------------------*/
+/* USER CODE BEGIN Includes */
+
+/* USER CODE END Includes */
+
+/* Private typedef -----------------------------------------------------------*/
+/* USER CODE BEGIN PTD */
+
+/* USER CODE END PTD */
+
+/* Private define ------------------------------------------------------------*/
+/* USER CODE BEGIN PD */
+/* USER CODE END PD */
+
+/* Private macro -------------------------------------------------------------*/
+/* USER CODE BEGIN PM */
+
+/* USER CODE END PM */
+
+/* Private variables ---------------------------------------------------------*/
+UART_HandleTypeDef huart1;
+UART_HandleTypeDef huart3;
+DMA_HandleTypeDef hdma_usart1_rx;
+DMA_HandleTypeDef hdma_usart1_tx;
+DMA_HandleTypeDef hdma_usart3_rx;
+DMA_HandleTypeDef hdma_usart3_tx;
+
+/* USER CODE BEGIN PV */
+
+/* USER CODE END PV */
+
+/* Private function prototypes -----------------------------------------------*/
+void SystemClock_Config(void);
+static void MX_GPIO_Init(void);
+static void MX_DMA_Init(void);
+static void MX_USART3_UART_Init(void);
+static void MX_USART1_UART_Init(void);
+/* USER CODE BEGIN PFP */
+
+/* USER CODE END PFP */
+
+/* Private user code ---------------------------------------------------------*/
+/* USER CODE BEGIN 0 */
+
+////////// ALL OFF //////////
+
+void p1off(void){
+GPIOC->MODER &= ~(GPIO_MODER_MODER10);
+}
+void p3off(void){
+GPIOB->MODER &= ~(GPIO_MODER_MODER3);
+}
+void p5off(void){
+GPIOB->MODER &= ~(GPIO_MODER_MODER5);
+}
+void p7off(void){
+GPIOB->MODER &= ~(GPIO_MODER_MODER4);
+}
+void p10off(void){
+GPIOA->MODER &= ~(GPIO_MODER_MODER8);
+}
+void p12off(void){
+GPIOC->MODER &= ~(GPIO_MODER_MODER12);
+}
+void p14off(void){
+GPIOC->MODER &= ~(GPIO_MODER_MODER7);
+}
+void p16off(void){
+GPIOB->MODER &= ~(GPIO_MODER_MODER6);
+}
+void p17off(void){
+GPIOA->MODER &= ~(GPIO_MODER_MODER7);
+}
+void p19off(void){
+GPIOA->MODER &= ~(GPIO_MODER_MODER6);
+}
+void p21off(void){
+GPIOA->MODER &= ~(GPIO_MODER_MODER5);
+}
+void p23off(void){
+GPIOB->MODER &= ~(GPIO_MODER_MODER9);
+}
+void p26off(void){
+GPIOB->MODER &= ~(GPIO_MODER_MODER8);
+}
+void p28off(void){
+GPIOC->MODER &= ~(GPIO_MODER_MODER9);
+}
+void p30off(void){
+GPIOC->MODER &= ~(GPIO_MODER_MODER8);
+}
+void p32off(void){
+GPIOC->MODER &= ~(GPIO_MODER_MODER6);
+}
+void p33off(void){
+GPIOA->MODER &= ~(GPIO_MODER_MODER12);
+}
+void p35off(void){
+GPIOA->MODER &= ~(GPIO_MODER_MODER11);
+}
+void p37off(void){
+GPIOB->MODER &= ~(GPIO_MODER_MODER12);
+}
+void p39off(void){
+GPIOB->MODER &= ~(GPIO_MODER_MODER2);
+}
+void p42off(void){
+GPIOB->MODER &= ~(GPIO_MODER_MODER1);
+}
+void p44off(void){
+GPIOB->MODER &= ~(GPIO_MODER_MODER15);
+}
+void p46off(void){
+GPIOB->MODER &= ~(GPIO_MODER_MODER14);
+}
+void p48off(void){
+GPIOB->MODER &= ~(GPIO_MODER_MODER13);
+}
+void p49off(void){
+GPIOC->MODER &= ~(GPIO_MODER_MODER4);
+}
+void p51off(void){
+GPIOA->MODER &= ~(GPIO_MODER_MODER1);
+}
+void p53off(void){
+GPIOA->MODER &= ~(GPIO_MODER_MODER4);
+}
+void p55off(void){
+GPIOB->MODER &= ~(GPIO_MODER_MODER0);
+}
+void p58off(void){
+GPIOC->MODER &= ~(GPIO_MODER_MODER1);
+}
+void p60off(void){
+GPIOC->MODER &= ~(GPIO_MODER_MODER0);
+}
+void p62off(void){
+GPIOC->MODER &= ~(GPIO_MODER_MODER3);
+}
+void p64off(void){
+GPIOC->MODER &= ~(GPIO_MODER_MODER2);
+}
+
+
+
+
+////////// RED ON //////////
+
+void p1red(void){
+GPIOC->MODER |= GPIO_MODER_MODER10_0;
+HAL_GPIO_WritePin(p1_GPIO_Port, p1_Pin, GPIO_PIN_SET);
+}
+void p3red(void){	
+GPIOB->MODER |= GPIO_MODER_MODER3_0;
+HAL_GPIO_WritePin(p3_GPIO_Port, p3_Pin, GPIO_PIN_SET);
+}
+void p5red(void){
+GPIOB->MODER |= GPIO_MODER_MODER5_0;
+HAL_GPIO_WritePin(p5_GPIO_Port, p5_Pin, GPIO_PIN_SET);
+}
+void p7red(void){
+GPIOB->MODER |= GPIO_MODER_MODER4_0;
+HAL_GPIO_WritePin(p7_GPIO_Port, p7_Pin, GPIO_PIN_SET);
+}
+void p10red(void){
+GPIOA->MODER |= GPIO_MODER_MODER8_0;
+HAL_GPIO_WritePin(p10_GPIO_Port, p10_Pin, GPIO_PIN_SET);
+}
+void p12red(void){
+GPIOC->MODER |= GPIO_MODER_MODER12_0;
+HAL_GPIO_WritePin(p12_GPIO_Port, p12_Pin, GPIO_PIN_SET);
+}
+void p14red(void){
+GPIOC->MODER |= GPIO_MODER_MODER7_0;
+HAL_GPIO_WritePin(p14_GPIO_Port, p14_Pin, GPIO_PIN_SET);
+}
+void p16red(void){
+GPIOB->MODER |= GPIO_MODER_MODER6_0;
+HAL_GPIO_WritePin(p16_GPIO_Port, p16_Pin, GPIO_PIN_SET);
+}
+void p17red(void){
+GPIOA->MODER |= GPIO_MODER_MODER7_0;
+HAL_GPIO_WritePin(p17_GPIO_Port, p17_Pin, GPIO_PIN_SET);
+}
+void p19red(void){
+GPIOA->MODER |= GPIO_MODER_MODER6_0;
+HAL_GPIO_WritePin(p19_GPIO_Port, p19_Pin, GPIO_PIN_SET);
+}
+void p21red(void){
+GPIOA->MODER |= GPIO_MODER_MODER5_0;
+HAL_GPIO_WritePin(p21_GPIO_Port, p21_Pin, GPIO_PIN_SET);
+}
+void p23red(void){
+GPIOB->MODER |= GPIO_MODER_MODER9_0;
+HAL_GPIO_WritePin(p23_GPIO_Port, p23_Pin, GPIO_PIN_SET);
+}
+void p26red(void){
+GPIOB->MODER |= GPIO_MODER_MODER8_0;
+HAL_GPIO_WritePin(p26_GPIO_Port, p26_Pin, GPIO_PIN_SET);
+}
+void p28red(void){
+GPIOC->MODER |= GPIO_MODER_MODER9_0;
+HAL_GPIO_WritePin(p28_GPIO_Port, p28_Pin, GPIO_PIN_SET);
+}
+void p30red(void){
+GPIOC->MODER |= GPIO_MODER_MODER8_0;
+HAL_GPIO_WritePin(p30_GPIO_Port, p30_Pin, GPIO_PIN_SET);
+}
+void p32red(void){
+GPIOC->MODER |= GPIO_MODER_MODER6_0;
+HAL_GPIO_WritePin(p32_GPIO_Port, p32_Pin, GPIO_PIN_SET);
+}
+void p33red(void){
+GPIOA->MODER |= GPIO_MODER_MODER12_0;
+HAL_GPIO_WritePin(p33_GPIO_Port, p33_Pin, GPIO_PIN_SET);
+}
+void p35red(void){
+GPIOA->MODER |= GPIO_MODER_MODER11_0;
+HAL_GPIO_WritePin(p35_GPIO_Port, p35_Pin, GPIO_PIN_SET);
+}
+void p37red(void){
+GPIOB->MODER |= GPIO_MODER_MODER12_0;
+HAL_GPIO_WritePin(p37_GPIO_Port, p37_Pin, GPIO_PIN_SET);
+}
+void p39red(void){
+GPIOB->MODER |= GPIO_MODER_MODER2_0;
+HAL_GPIO_WritePin(p39_GPIO_Port, p39_Pin, GPIO_PIN_SET);
+}
+void p42red(void){
+GPIOB->MODER |= GPIO_MODER_MODER1_0;
+HAL_GPIO_WritePin(p42_GPIO_Port, p42_Pin, GPIO_PIN_SET);
+}
+void p44red(void){
+GPIOB->MODER |= GPIO_MODER_MODER15_0;
+HAL_GPIO_WritePin(p44_GPIO_Port, p44_Pin, GPIO_PIN_SET);
+}
+void p46red(void){
+GPIOB->MODER |= GPIO_MODER_MODER14_0;
+HAL_GPIO_WritePin(p46_GPIO_Port, p46_Pin, GPIO_PIN_SET);
+}
+void p48red(void){
+GPIOB->MODER |= GPIO_MODER_MODER13_0;
+HAL_GPIO_WritePin(p48_GPIO_Port, p48_Pin, GPIO_PIN_SET);
+}
+void p49red(void){
+GPIOC->MODER |= GPIO_MODER_MODER4_0;
+HAL_GPIO_WritePin(p49_GPIO_Port, p49_Pin, GPIO_PIN_SET);
+}
+void p51red(void){
+GPIOA->MODER |= GPIO_MODER_MODER1_0;
+HAL_GPIO_WritePin(p51_GPIO_Port, p51_Pin, GPIO_PIN_SET);
+}
+void p53red(void){
+GPIOA->MODER |= GPIO_MODER_MODER4_0;
+HAL_GPIO_WritePin(p53_GPIO_Port, p53_Pin, GPIO_PIN_SET);
+}
+void p55red(void){
+GPIOB->MODER |= GPIO_MODER_MODER0_0;
+HAL_GPIO_WritePin(p55_GPIO_Port, p55_Pin, GPIO_PIN_SET);
+}
+void p58red(void){
+GPIOC->MODER |= GPIO_MODER_MODER1_0;
+HAL_GPIO_WritePin(p58_GPIO_Port, p58_Pin, GPIO_PIN_SET);
+}
+void p60red(void){
+GPIOC->MODER |= GPIO_MODER_MODER0_0;
+HAL_GPIO_WritePin(p60_GPIO_Port, p60_Pin, GPIO_PIN_SET);
+}
+void p62red(void){
+GPIOC->MODER |= GPIO_MODER_MODER3_0;
+HAL_GPIO_WritePin(p62_GPIO_Port, p62_Pin, GPIO_PIN_SET);
+}
+void p64red(void){
+GPIOC->MODER |= GPIO_MODER_MODER2_0;
+HAL_GPIO_WritePin(p64_GPIO_Port, p64_Pin, GPIO_PIN_SET);
+}
+
+
+
+
+
+////////// BLUE ON //////////
+
+void p1blue(void){
+GPIOC->MODER |= GPIO_MODER_MODER10_0;
+HAL_GPIO_WritePin(p1_GPIO_Port, p1_Pin, GPIO_PIN_RESET);
+}
+void p3blue(void){	
+GPIOB->MODER |= GPIO_MODER_MODER3_0;
+HAL_GPIO_WritePin(p3_GPIO_Port, p3_Pin, GPIO_PIN_RESET);
+}
+void p5blue(void){
+GPIOB->MODER |= GPIO_MODER_MODER5_0;
+HAL_GPIO_WritePin(p5_GPIO_Port, p5_Pin, GPIO_PIN_RESET);
+}
+void p7blue(void){
+GPIOB->MODER |= GPIO_MODER_MODER4_0;
+HAL_GPIO_WritePin(p7_GPIO_Port, p7_Pin, GPIO_PIN_RESET);
+}
+void p10blue(void){
+GPIOA->MODER |= GPIO_MODER_MODER8_0;
+HAL_GPIO_WritePin(p10_GPIO_Port, p10_Pin, GPIO_PIN_RESET);
+}
+void p12blue(void){
+GPIOC->MODER |= GPIO_MODER_MODER12_0;
+HAL_GPIO_WritePin(p12_GPIO_Port, p12_Pin, GPIO_PIN_RESET);
+}
+void p14blue(void){
+GPIOC->MODER |= GPIO_MODER_MODER7_0;
+HAL_GPIO_WritePin(p14_GPIO_Port, p14_Pin, GPIO_PIN_RESET);
+}
+void p16blue(void){
+GPIOB->MODER |= GPIO_MODER_MODER6_0;
+HAL_GPIO_WritePin(p16_GPIO_Port, p16_Pin, GPIO_PIN_RESET);
+}
+void p17blue(void){
+GPIOA->MODER |= GPIO_MODER_MODER7_0;
+HAL_GPIO_WritePin(p17_GPIO_Port, p17_Pin, GPIO_PIN_RESET);
+}
+void p19blue(void){
+GPIOA->MODER |= GPIO_MODER_MODER6_0;
+HAL_GPIO_WritePin(p19_GPIO_Port, p19_Pin, GPIO_PIN_RESET);
+}
+void p21blue(void){
+GPIOA->MODER |= GPIO_MODER_MODER5_0;
+HAL_GPIO_WritePin(p21_GPIO_Port, p21_Pin, GPIO_PIN_RESET);
+}
+void p23blue(void){
+GPIOB->MODER |= GPIO_MODER_MODER9_0;
+HAL_GPIO_WritePin(p23_GPIO_Port, p23_Pin, GPIO_PIN_RESET);
+}
+void p26blue(void){
+GPIOB->MODER |= GPIO_MODER_MODER8_0;
+HAL_GPIO_WritePin(p26_GPIO_Port, p26_Pin, GPIO_PIN_RESET);
+}
+void p28blue(void){
+GPIOC->MODER |= GPIO_MODER_MODER9_0;
+HAL_GPIO_WritePin(p28_GPIO_Port, p28_Pin, GPIO_PIN_RESET);
+}
+void p30blue(void){
+GPIOC->MODER |= GPIO_MODER_MODER8_0;
+HAL_GPIO_WritePin(p30_GPIO_Port, p30_Pin, GPIO_PIN_RESET);
+}
+void p32blue(void){
+GPIOC->MODER |= GPIO_MODER_MODER6_0;
+HAL_GPIO_WritePin(p32_GPIO_Port, p32_Pin, GPIO_PIN_RESET);
+}
+void p33blue(void){
+GPIOA->MODER |= GPIO_MODER_MODER12_0;
+HAL_GPIO_WritePin(p33_GPIO_Port, p33_Pin, GPIO_PIN_RESET);
+}
+void p35blue(void){
+GPIOA->MODER |= GPIO_MODER_MODER11_0;
+HAL_GPIO_WritePin(p35_GPIO_Port, p35_Pin, GPIO_PIN_RESET);
+}
+void p37blue(void){
+GPIOB->MODER |= GPIO_MODER_MODER12_0;
+HAL_GPIO_WritePin(p37_GPIO_Port, p37_Pin, GPIO_PIN_RESET);
+}
+void p39blue(void){
+GPIOB->MODER |= GPIO_MODER_MODER2_0;
+HAL_GPIO_WritePin(p39_GPIO_Port, p39_Pin, GPIO_PIN_RESET);
+}
+void p42blue(void){
+GPIOB->MODER |= GPIO_MODER_MODER1_0;
+HAL_GPIO_WritePin(p42_GPIO_Port, p42_Pin, GPIO_PIN_RESET);
+}
+void p44blue(void){
+GPIOB->MODER |= GPIO_MODER_MODER15_0;
+HAL_GPIO_WritePin(p44_GPIO_Port, p44_Pin, GPIO_PIN_RESET);
+}
+void p46blue(void){
+GPIOB->MODER |= GPIO_MODER_MODER14_0;
+HAL_GPIO_WritePin(p46_GPIO_Port, p46_Pin, GPIO_PIN_RESET);
+}
+void p48blue(void){
+GPIOB->MODER |= GPIO_MODER_MODER13_0;
+HAL_GPIO_WritePin(p48_GPIO_Port, p48_Pin, GPIO_PIN_RESET);
+}
+void p49blue(void){
+GPIOC->MODER |= GPIO_MODER_MODER4_0;
+HAL_GPIO_WritePin(p49_GPIO_Port, p49_Pin, GPIO_PIN_RESET);
+}
+void p51blue(void){
+GPIOA->MODER |= GPIO_MODER_MODER1_0;
+HAL_GPIO_WritePin(p51_GPIO_Port, p51_Pin, GPIO_PIN_RESET);
+}
+void p53blue(void){
+GPIOA->MODER |= GPIO_MODER_MODER4_0;
+HAL_GPIO_WritePin(p53_GPIO_Port, p53_Pin, GPIO_PIN_RESET);
+}
+void p55blue(void){
+GPIOB->MODER |= GPIO_MODER_MODER0_0;
+HAL_GPIO_WritePin(p55_GPIO_Port, p55_Pin, GPIO_PIN_RESET);
+}
+void p58blue(void){
+GPIOC->MODER |= GPIO_MODER_MODER1_0;
+HAL_GPIO_WritePin(p58_GPIO_Port, p58_Pin, GPIO_PIN_RESET);
+}
+void p60blue(void){
+GPIOC->MODER |= GPIO_MODER_MODER0_0;
+HAL_GPIO_WritePin(p60_GPIO_Port, p60_Pin, GPIO_PIN_RESET);
+}
+void p62blue(void){
+GPIOC->MODER |= GPIO_MODER_MODER3_0;
+HAL_GPIO_WritePin(p62_GPIO_Port, p62_Pin, GPIO_PIN_RESET);
+}
+void p64blue(void){
+GPIOC->MODER |= GPIO_MODER_MODER2_0;
+HAL_GPIO_WritePin(p64_GPIO_Port, p64_Pin, GPIO_PIN_RESET);
+}
+
+
+
+////////// RED BLINK //////////
+
+void redblinkp1 (void) {
+			p1red();
+			HAL_Delay(500);
+			p1off();
+		  HAL_Delay(500); 
+}
+void redblinkp3 (void) {
+			p3red();
+			HAL_Delay(500);
+			p3off();
+		  HAL_Delay(500); 
+}
+void redblinkp5 (void) {
+			p5red();
+			HAL_Delay(500);
+			p5off();
+		  HAL_Delay(500); 
+}
+void redblinkp7 (void) {
+			p7red();
+			HAL_Delay(500);
+			p7off();
+		  HAL_Delay(500); 
+}
+void redblinkp10 (void) {
+			p10red();
+			HAL_Delay(500);
+			p10off();
+		  HAL_Delay(500); 
+}
+void redblinkp12 (void) {
+			p12red();
+			HAL_Delay(500);
+			p12off();
+		  HAL_Delay(500); 
+}
+void redblinkp14 (void) {
+			p14red();
+			HAL_Delay(500);
+			p14off();
+		  HAL_Delay(500); 
+}
+void redblinkp16 (void) {
+			p16red();
+			HAL_Delay(500);
+			p16off();
+		  HAL_Delay(500); 
+}
+void redblinkp17 (void) {
+			p17red();
+			HAL_Delay(500);
+			p17off();
+		  HAL_Delay(500); 
+}
+void redblinkp19 (void) {
+			p19red();
+			HAL_Delay(500);
+			p19off();
+		  HAL_Delay(500); 
+}
+void redblinkp21 (void) {
+			p21red();
+			HAL_Delay(500);
+			p21off();
+		  HAL_Delay(500); 
+}
+void redblinkp23 (void) {
+			p23red();
+			HAL_Delay(500);
+			p23off();
+		  HAL_Delay(500); 
+}
+void redblinkp26 (void) {
+			p26red();
+			HAL_Delay(500);
+			p26off();
+		  HAL_Delay(500); 
+}
+void redblinkp28 (void) {
+			p28red();
+			HAL_Delay(500);
+			p28off();
+		  HAL_Delay(500); 
+}
+void redblinkp30 (void) {
+			p30red();
+			HAL_Delay(500);
+			p30off();
+		  HAL_Delay(500); 
+}
+void redblinkp32 (void) {
+			p32red();
+			HAL_Delay(500);
+			p32off();
+		  HAL_Delay(500); 
+}
+void redblinkp33 (void) {
+			p33red();
+			HAL_Delay(500);
+			p33off();
+		  HAL_Delay(500); 
+}
+void redblinkp35 (void) {
+			p35red();
+			HAL_Delay(500);
+			p35off();
+		  HAL_Delay(500); 
+}
+void redblinkp37 (void) {
+			p37red();
+			HAL_Delay(500);
+			p37off();
+		  HAL_Delay(500); 
+}
+void redblinkp39 (void) {
+			p39red();
+			HAL_Delay(500);
+			p39off();
+		  HAL_Delay(500); 
+}
+void redblinkp42 (void) {
+			p42red();
+			HAL_Delay(500);
+			p42off();
+		  HAL_Delay(500); 
+}
+void redblinkp44 (void) {
+			p44red();
+			HAL_Delay(500);
+			p44off();
+		  HAL_Delay(500); 
+}
+void redblinkp46 (void) {
+			p46red();
+			HAL_Delay(500);
+			p46off();
+		  HAL_Delay(500); 
+}
+void redblinkp48 (void) {
+			p48red();
+			HAL_Delay(500);
+			p48off();
+		  HAL_Delay(500); 
+}
+void redblinkp49 (void) {
+			p49red();
+			HAL_Delay(500);
+			p49off();
+		  HAL_Delay(500); 
+}
+void redblinkp51 (void) {
+			p51red();
+			HAL_Delay(500);
+			p51off();
+		  HAL_Delay(500); 
+}
+void redblinkp53 (void) {
+			p53red();
+			HAL_Delay(500);
+			p53off();
+		  HAL_Delay(500); 
+}
+void redblinkp55 (void) {
+			p55red();
+			HAL_Delay(500);
+			p55off();
+		  HAL_Delay(500); 
+}
+void redblinkp58 (void) {
+			p58red();
+			HAL_Delay(500);
+			p58off();
+		  HAL_Delay(500); 
+}
+void redblinkp60 (void) {
+			p60red();
+			HAL_Delay(500);
+			p60off();
+		  HAL_Delay(500); 
+}
+void redblinkp62 (void) {
+			p62red();
+			HAL_Delay(500);
+			p62off();
+		  HAL_Delay(500); 
+}
+void redblinkp64 (void) {
+			p64red();
+			HAL_Delay(500);
+			p64off();
+		  HAL_Delay(500); 
+}
+
+
+////////// BLUE BLINK //////////
+
+void blueblinkp1 (void) {
+			p1blue();
+			HAL_Delay(500);
+			p1off();
+		  HAL_Delay(500); 
+}
+void blueblinkp3 (void) {
+			p3blue();
+			HAL_Delay(500);
+			p3off();
+		  HAL_Delay(500); 
+}
+void blueblinkp5 (void) {
+			p5blue();
+			HAL_Delay(500);
+			p5off();
+		  HAL_Delay(500); 
+}
+void blueblinkp7 (void) {
+			p7blue();
+			HAL_Delay(500);
+			p7off();
+		  HAL_Delay(500); 
+}
+void blueblinkp10 (void) {
+			p10blue();
+			HAL_Delay(500);
+			p10off();
+		  HAL_Delay(500); 
+}
+void blueblinkp12 (void) {
+			p12blue();
+			HAL_Delay(500);
+			p12off();
+		  HAL_Delay(500); 
+}
+void blueblinkp14 (void) {
+			p14blue();
+			HAL_Delay(500);
+			p14off();
+		  HAL_Delay(500); 
+}
+void blueblinkp16 (void) {
+			p16blue();
+			HAL_Delay(500);
+			p16off();
+		  HAL_Delay(500); 
+}
+void blueblinkp17 (void) {
+			p17blue();
+			HAL_Delay(500);
+			p17off();
+		  HAL_Delay(500); 
+}
+void blueblinkp19 (void) {
+			p19blue();
+			HAL_Delay(500);
+			p19off();
+		  HAL_Delay(500); 
+}
+void blueblinkp21 (void) {
+			p21blue();
+			HAL_Delay(500);
+			p21off();
+		  HAL_Delay(500); 
+}
+void blueblinkp23 (void) {
+			p23blue();
+			HAL_Delay(500);
+			p23off();
+		  HAL_Delay(500); 
+}
+void blueblinkp26 (void) {
+			p26blue();
+			HAL_Delay(500);
+			p26off();
+		  HAL_Delay(500); 
+}
+void blueblinkp28 (void) {
+			p28blue();
+			HAL_Delay(500);
+			p28off();
+		  HAL_Delay(500); 
+}
+void blueblinkp30 (void) {
+			p30blue();
+			HAL_Delay(500);
+			p30off();
+		  HAL_Delay(500); 
+}
+void blueblinkp32 (void) {
+			p32blue();
+			HAL_Delay(500);
+			p32off();
+		  HAL_Delay(500); 
+}
+void blueblinkp33 (void) {
+			p33blue();
+			HAL_Delay(500);
+			p33off();
+		  HAL_Delay(500); 
+}
+void blueblinkp35 (void) {
+			p35blue();
+			HAL_Delay(500);
+			p35off();
+		  HAL_Delay(500); 
+}
+void blueblinkp37 (void) {
+			p37blue();
+			HAL_Delay(500);
+			p37off();
+		  HAL_Delay(500); 
+}
+void blueblinkp39 (void) {
+			p39blue();
+			HAL_Delay(500);
+			p39off();
+		  HAL_Delay(500); 
+}
+void blueblinkp42 (void) {
+			p42blue();
+			HAL_Delay(500);
+			p42off();
+		  HAL_Delay(500); 
+}
+void blueblinkp44 (void) {
+			p44blue();
+			HAL_Delay(500);
+			p44off();
+		  HAL_Delay(500); 
+}
+void blueblinkp46 (void) {
+			p46blue();
+			HAL_Delay(500);
+			p46off();
+		  HAL_Delay(500); 
+}
+void blueblinkp48 (void) {
+			p48blue();
+			HAL_Delay(500);
+			p48off();
+		  HAL_Delay(500); 
+}
+void blueblinkp49 (void) {
+			p49blue();
+			HAL_Delay(500);
+			p49off();
+		  HAL_Delay(500); 
+}
+void blueblinkp51 (void) {
+			p51blue();
+			HAL_Delay(500);
+			p51off();
+		  HAL_Delay(500); 
+}
+void blueblinkp53 (void) {
+			p53blue();
+			HAL_Delay(500);
+			p53off();
+		  HAL_Delay(500); 
+}
+void blueblinkp55 (void) {
+			p55blue();
+			HAL_Delay(500);
+			p55off();
+		  HAL_Delay(500); 
+}
+void blueblinkp58 (void) {
+			p58blue();
+			HAL_Delay(500);
+			p58off();
+		  HAL_Delay(500); 
+}
+void blueblinkp60 (void) {
+			p60blue();
+			HAL_Delay(500);
+			p60off();
+		  HAL_Delay(500); 
+}
+void blueblinkp62 (void) {
+			p62blue();
+			HAL_Delay(500);
+			p62off();
+		  HAL_Delay(500);	
+}
+void blueblinkp64 (void) {
+			p64blue();
+			HAL_Delay(500);
+			p64off();
+		  HAL_Delay(500); 
+}
+
+
+//void blueblinkp (int a) {
+//	switch (a){
+//		case 60:
+//			p60blue();
+//			HAL_Delay(500);
+//			p60off();
+//		  HAL_Delay(500); 
+//		  break;
+//		case 62:
+//			p62blue();
+//			HAL_Delay(500);
+//			p62off();
+//		  HAL_Delay(500);	
+//		  break;
+//		case 64:
+//			p64blue();
+//			HAL_Delay(500);
+//			p64off();
+//		  HAL_Delay(500); 
+//		  break;
+//}}
+
+void off(int a) {
+	switch (a){
+		case 1:
+    GPIOC->MODER &= ~(GPIO_MODER_MODER10);
+		break;
+		case 3:
+		GPIOB->MODER &= ~(GPIO_MODER_MODER3);
+		break;
+		case 5:
+		GPIOB->MODER &= ~(GPIO_MODER_MODER5);
+		break;
+		case 7:
+		GPIOB->MODER &= ~(GPIO_MODER_MODER4);
+		break;
+		case 10:
+		GPIOA->MODER &= ~(GPIO_MODER_MODER8);
+		break;
+		case 12:
+		GPIOC->MODER &= ~(GPIO_MODER_MODER12);
+		break;
+		case 14:
+		GPIOC->MODER &= ~(GPIO_MODER_MODER7);
+		break;
+		case 16:
+		GPIOB->MODER &= ~(GPIO_MODER_MODER6);
+		break;
+		case 17:
+		GPIOA->MODER &= ~(GPIO_MODER_MODER7);
+		break;
+		case 19:
+		GPIOA->MODER &= ~(GPIO_MODER_MODER6);
+		break;
+		case 21:
+		GPIOA->MODER &= ~(GPIO_MODER_MODER5);
+		break;
+		case 23:
+		GPIOB->MODER &= ~(GPIO_MODER_MODER9);
+		break;
+		case 26:
+		GPIOB->MODER &= ~(GPIO_MODER_MODER8);
+		break;
+		case 28:
+		GPIOC->MODER &= ~(GPIO_MODER_MODER9);
+		break;
+		case 30:
+		GPIOC->MODER &= ~(GPIO_MODER_MODER8);
+		break;
+		case 32:
+		GPIOC->MODER &= ~(GPIO_MODER_MODER6);
+		break;
+		case 33:
+		GPIOA->MODER &= ~(GPIO_MODER_MODER12);
+		break;
+		case 35:
+		GPIOA->MODER &= ~(GPIO_MODER_MODER11);
+		break;
+		case 37:
+		GPIOB->MODER &= ~(GPIO_MODER_MODER12);
+		break;
+		case 39:
+		GPIOB->MODER &= ~(GPIO_MODER_MODER2);
+		break;
+		case 42:
+		GPIOB->MODER &= ~(GPIO_MODER_MODER1);
+		break;
+		case 44:
+		GPIOB->MODER &= ~(GPIO_MODER_MODER15);
+		break;
+		case 46:
+		GPIOB->MODER &= ~(GPIO_MODER_MODER14);
+		break;
+		case 48:
+		GPIOB->MODER &= ~(GPIO_MODER_MODER13);
+		break;
+		case 49:
+		GPIOC->MODER &= ~(GPIO_MODER_MODER4);
+		break;
+		case 51:
+		GPIOA->MODER &= ~(GPIO_MODER_MODER1);
+		break;
+		case 53:
+		GPIOA->MODER &= ~(GPIO_MODER_MODER4);
+		break;
+		case 55:
+		GPIOB->MODER &= ~(GPIO_MODER_MODER0);
+		break;
+		case 58:
+		GPIOC->MODER &= ~(GPIO_MODER_MODER1);
+		break;
+		case 60:
+		GPIOC->MODER &= ~(GPIO_MODER_MODER0);
+		break;
+		case 62:
+		GPIOC->MODER &= ~(GPIO_MODER_MODER3);
+		break;
+		case 64:
+		GPIOC->MODER &= ~(GPIO_MODER_MODER2);
+		break;
+	}}
+
+	////////// RED ON //////////
+	
+	
+	void onred(int b) {
+	switch (b){
+		case 1:
+		GPIOC->MODER |= GPIO_MODER_MODER10_0;
+		HAL_GPIO_WritePin(p1_GPIO_Port, p1_Pin, GPIO_PIN_SET);
+		break;
+		case 3:
+		GPIOB->MODER |= GPIO_MODER_MODER3_0;
+		HAL_GPIO_WritePin(p3_GPIO_Port, p3_Pin, GPIO_PIN_SET);
+		break;
+		case 5:
+		GPIOB->MODER |= GPIO_MODER_MODER5_0;
+		HAL_GPIO_WritePin(p5_GPIO_Port, p5_Pin, GPIO_PIN_SET);
+		break;
+		case 7:
+		GPIOB->MODER |= GPIO_MODER_MODER4_0;
+		HAL_GPIO_WritePin(p7_GPIO_Port, p7_Pin, GPIO_PIN_SET);
+		break;
+		case 10:
+		GPIOA->MODER |= GPIO_MODER_MODER8_0;
+		HAL_GPIO_WritePin(p10_GPIO_Port, p10_Pin, GPIO_PIN_SET);
+		break;
+		case 12:
+		GPIOC->MODER |= GPIO_MODER_MODER12_0;
+		HAL_GPIO_WritePin(p12_GPIO_Port, p12_Pin, GPIO_PIN_SET);
+		break;
+		case 14:
+		GPIOC->MODER |= GPIO_MODER_MODER7_0;
+		HAL_GPIO_WritePin(p14_GPIO_Port, p14_Pin, GPIO_PIN_SET);
+		break;
+		case 16:
+		GPIOB->MODER |= GPIO_MODER_MODER6_0;
+		HAL_GPIO_WritePin(p16_GPIO_Port, p16_Pin, GPIO_PIN_SET);
+		break;
+		case 17:
+		GPIOA->MODER |= GPIO_MODER_MODER7_0;
+		HAL_GPIO_WritePin(p17_GPIO_Port, p17_Pin, GPIO_PIN_SET);
+		break;
+		case 19:
+		GPIOA->MODER |= GPIO_MODER_MODER6_0;
+		HAL_GPIO_WritePin(p19_GPIO_Port, p19_Pin, GPIO_PIN_SET);
+		break;
+		case 21:
+		GPIOA->MODER |= GPIO_MODER_MODER5_0;
+		HAL_GPIO_WritePin(p21_GPIO_Port, p21_Pin, GPIO_PIN_SET);
+		break;
+		case 23:
+		GPIOB->MODER |= GPIO_MODER_MODER9_0;
+		HAL_GPIO_WritePin(p23_GPIO_Port, p23_Pin, GPIO_PIN_SET);
+		break;
+		case 26:
+		GPIOB->MODER |= GPIO_MODER_MODER8_0;
+		HAL_GPIO_WritePin(p26_GPIO_Port, p26_Pin, GPIO_PIN_SET);
+		break;
+		case 28:
+		GPIOC->MODER |= GPIO_MODER_MODER9_0;
+		HAL_GPIO_WritePin(p28_GPIO_Port, p28_Pin, GPIO_PIN_SET);
+		break;
+		case 30:
+		GPIOC->MODER |= GPIO_MODER_MODER8_0;
+		HAL_GPIO_WritePin(p30_GPIO_Port, p30_Pin, GPIO_PIN_SET);
+		break;
+		case 32:
+		GPIOC->MODER |= GPIO_MODER_MODER6_0;
+		HAL_GPIO_WritePin(p32_GPIO_Port, p32_Pin, GPIO_PIN_SET);
+		break;
+		case 33:
+		GPIOA->MODER |= GPIO_MODER_MODER12_0;
+		HAL_GPIO_WritePin(p33_GPIO_Port, p33_Pin, GPIO_PIN_SET);
+		break;
+		case 35:
+		GPIOA->MODER |= GPIO_MODER_MODER11_0;
+		HAL_GPIO_WritePin(p35_GPIO_Port, p35_Pin, GPIO_PIN_SET);
+		break;
+		case 37:
+		GPIOB->MODER |= GPIO_MODER_MODER12_0;
+		HAL_GPIO_WritePin(p37_GPIO_Port, p37_Pin, GPIO_PIN_SET);
+		break;
+		case 39:
+		GPIOB->MODER |= GPIO_MODER_MODER2_0;
+		HAL_GPIO_WritePin(p39_GPIO_Port, p39_Pin, GPIO_PIN_SET);
+		break;
+		case 42:
+		GPIOB->MODER |= GPIO_MODER_MODER1_0;
+		HAL_GPIO_WritePin(p42_GPIO_Port, p42_Pin, GPIO_PIN_SET);
+		break;
+		case 44:
+		GPIOB->MODER |= GPIO_MODER_MODER15_0;
+		HAL_GPIO_WritePin(p44_GPIO_Port, p44_Pin, GPIO_PIN_SET);
+		break;
+		case 46:
+		GPIOB->MODER |= GPIO_MODER_MODER14_0;
+		HAL_GPIO_WritePin(p46_GPIO_Port, p46_Pin, GPIO_PIN_SET);
+		break;
+		case 48:
+		GPIOB->MODER |= GPIO_MODER_MODER13_0;
+		HAL_GPIO_WritePin(p48_GPIO_Port, p48_Pin, GPIO_PIN_SET);
+		break;
+		case 49:
+		GPIOC->MODER |= GPIO_MODER_MODER4_0;
+		HAL_GPIO_WritePin(p49_GPIO_Port, p49_Pin, GPIO_PIN_SET);
+		break;
+		case 51:
+		GPIOA->MODER |= GPIO_MODER_MODER1_0;
+		HAL_GPIO_WritePin(p51_GPIO_Port, p51_Pin, GPIO_PIN_SET);
+		break;
+		case 53:
+		GPIOA->MODER |= GPIO_MODER_MODER4_0;
+		HAL_GPIO_WritePin(p53_GPIO_Port, p53_Pin, GPIO_PIN_SET);
+		break;
+		case 55:
+		GPIOB->MODER |= GPIO_MODER_MODER0_0;
+		HAL_GPIO_WritePin(p55_GPIO_Port, p55_Pin, GPIO_PIN_SET);
+		break;
+		case 58:
+		GPIOC->MODER |= GPIO_MODER_MODER1_0;
+		HAL_GPIO_WritePin(p58_GPIO_Port, p58_Pin, GPIO_PIN_SET);
+		break;
+		case 60:
+		GPIOC->MODER |= GPIO_MODER_MODER0_0;
+		HAL_GPIO_WritePin(p60_GPIO_Port, p60_Pin, GPIO_PIN_SET);
+		break;
+		case 62:
+		GPIOC->MODER |= GPIO_MODER_MODER3_0;
+		HAL_GPIO_WritePin(p62_GPIO_Port, p62_Pin, GPIO_PIN_SET);
+		break;
+		case 64:
+		GPIOC->MODER |= GPIO_MODER_MODER2_0;
+		HAL_GPIO_WritePin(p64_GPIO_Port, p64_Pin, GPIO_PIN_SET);
+    break;
+}}
+	
+
+	////////// BLUE ON //////////
+	
+	
+	void onblue(int c) {
+	switch (c){
+		case 1:
+		GPIOC->MODER |= GPIO_MODER_MODER10_0;
+		HAL_GPIO_WritePin(p1_GPIO_Port, p1_Pin, GPIO_PIN_RESET);
+		break;
+		case 3:
+		GPIOB->MODER |= GPIO_MODER_MODER3_0;
+		HAL_GPIO_WritePin(p3_GPIO_Port, p3_Pin, GPIO_PIN_RESET);
+		break;
+		case 5:
+		GPIOB->MODER |= GPIO_MODER_MODER5_0;
+		HAL_GPIO_WritePin(p5_GPIO_Port, p5_Pin, GPIO_PIN_RESET);
+		break;
+		case 7:
+		GPIOB->MODER |= GPIO_MODER_MODER4_0;
+		HAL_GPIO_WritePin(p7_GPIO_Port, p7_Pin, GPIO_PIN_RESET);
+		break;
+		case 10:
+		GPIOA->MODER |= GPIO_MODER_MODER8_0;
+		HAL_GPIO_WritePin(p10_GPIO_Port, p10_Pin, GPIO_PIN_RESET);
+		break;
+		case 12:
+		GPIOC->MODER |= GPIO_MODER_MODER12_0;
+		HAL_GPIO_WritePin(p12_GPIO_Port, p12_Pin, GPIO_PIN_RESET);
+		break;
+		case 14:
+		GPIOC->MODER |= GPIO_MODER_MODER7_0;
+		HAL_GPIO_WritePin(p14_GPIO_Port, p14_Pin, GPIO_PIN_RESET);
+		break;
+		case 16:
+		GPIOB->MODER |= GPIO_MODER_MODER6_0;
+		HAL_GPIO_WritePin(p16_GPIO_Port, p16_Pin, GPIO_PIN_RESET);
+		break;
+		case 17:
+		GPIOA->MODER |= GPIO_MODER_MODER7_0;
+		HAL_GPIO_WritePin(p17_GPIO_Port, p17_Pin, GPIO_PIN_RESET);
+		break;
+		case 19:
+		GPIOA->MODER |= GPIO_MODER_MODER6_0;
+		HAL_GPIO_WritePin(p19_GPIO_Port, p19_Pin, GPIO_PIN_RESET);
+		break;
+		case 21:
+		GPIOA->MODER |= GPIO_MODER_MODER5_0;
+		HAL_GPIO_WritePin(p21_GPIO_Port, p21_Pin, GPIO_PIN_RESET);
+		break;
+		case 23:
+		GPIOB->MODER |= GPIO_MODER_MODER9_0;
+		HAL_GPIO_WritePin(p23_GPIO_Port, p23_Pin, GPIO_PIN_RESET);
+		break;
+		case 26:
+		GPIOB->MODER |= GPIO_MODER_MODER8_0;
+		HAL_GPIO_WritePin(p26_GPIO_Port, p26_Pin, GPIO_PIN_RESET);
+		break;
+		case 28:
+		GPIOC->MODER |= GPIO_MODER_MODER9_0;
+		HAL_GPIO_WritePin(p28_GPIO_Port, p28_Pin, GPIO_PIN_RESET);
+		break;
+		case 30:
+		GPIOC->MODER |= GPIO_MODER_MODER8_0;
+		HAL_GPIO_WritePin(p30_GPIO_Port, p30_Pin, GPIO_PIN_RESET);
+		break;
+		case 32:
+		GPIOC->MODER |= GPIO_MODER_MODER6_0;
+		HAL_GPIO_WritePin(p32_GPIO_Port, p32_Pin, GPIO_PIN_RESET);
+		break;
+		case 33:
+		GPIOA->MODER |= GPIO_MODER_MODER12_0;
+		HAL_GPIO_WritePin(p33_GPIO_Port, p33_Pin, GPIO_PIN_RESET);
+		break;
+		case 35:
+		GPIOA->MODER |= GPIO_MODER_MODER11_0;
+		HAL_GPIO_WritePin(p35_GPIO_Port, p35_Pin, GPIO_PIN_RESET);
+		break;
+		case 37:
+		GPIOB->MODER |= GPIO_MODER_MODER12_0;
+		HAL_GPIO_WritePin(p37_GPIO_Port, p37_Pin, GPIO_PIN_RESET);
+		break;
+		case 39:
+		GPIOB->MODER |= GPIO_MODER_MODER2_0;
+		HAL_GPIO_WritePin(p39_GPIO_Port, p39_Pin, GPIO_PIN_RESET);
+		break;
+		case 42:
+		GPIOB->MODER |= GPIO_MODER_MODER1_0;
+		HAL_GPIO_WritePin(p42_GPIO_Port, p42_Pin, GPIO_PIN_RESET);
+		break;
+		case 44:
+		GPIOB->MODER |= GPIO_MODER_MODER15_0;
+		HAL_GPIO_WritePin(p44_GPIO_Port, p44_Pin, GPIO_PIN_RESET);
+		break;
+		case 46:
+		GPIOB->MODER |= GPIO_MODER_MODER14_0;
+		HAL_GPIO_WritePin(p46_GPIO_Port, p46_Pin, GPIO_PIN_RESET);
+		break;
+		case 48:
+		GPIOB->MODER |= GPIO_MODER_MODER13_0;
+		HAL_GPIO_WritePin(p48_GPIO_Port, p48_Pin, GPIO_PIN_RESET);
+		break;
+		case 49:
+		GPIOC->MODER |= GPIO_MODER_MODER4_0;
+		HAL_GPIO_WritePin(p49_GPIO_Port, p49_Pin, GPIO_PIN_RESET);
+		break;
+		case 51:
+		GPIOA->MODER |= GPIO_MODER_MODER1_0;
+		HAL_GPIO_WritePin(p51_GPIO_Port, p51_Pin, GPIO_PIN_RESET);
+		break;
+		case 53:
+		GPIOA->MODER |= GPIO_MODER_MODER4_0;
+		HAL_GPIO_WritePin(p53_GPIO_Port, p53_Pin, GPIO_PIN_RESET);
+		break;
+		case 55:
+		GPIOB->MODER |= GPIO_MODER_MODER0_0;
+		HAL_GPIO_WritePin(p55_GPIO_Port, p55_Pin, GPIO_PIN_RESET);
+		break;
+		case 58:
+		GPIOC->MODER |= GPIO_MODER_MODER1_0;
+		HAL_GPIO_WritePin(p58_GPIO_Port, p58_Pin, GPIO_PIN_RESET);
+		break;
+		case 60:
+		GPIOC->MODER |= GPIO_MODER_MODER0_0;
+		HAL_GPIO_WritePin(p60_GPIO_Port, p60_Pin, GPIO_PIN_RESET);
+		break;
+		case 62:
+		GPIOC->MODER |= GPIO_MODER_MODER3_0;
+		HAL_GPIO_WritePin(p62_GPIO_Port, p62_Pin, GPIO_PIN_RESET);
+		break;
+		case 64:
+		GPIOC->MODER |= GPIO_MODER_MODER2_0;
+		HAL_GPIO_WritePin(p64_GPIO_Port, p64_Pin, GPIO_PIN_RESET);
+    break;
+}}
+	
+
+////////// RED BLINK //////////
+
+
+void redblink(int d) {
+	switch (d){
+		case 1:
+			p1red();
+			HAL_Delay(500);
+			p1off();
+		  HAL_Delay(500); 
+break;
+		case 3:
+			p3red();
+			HAL_Delay(500);
+			p3off();
+		  HAL_Delay(500); 
+break;
+		case 5:
+			p5red();
+			HAL_Delay(500);
+			p5off();
+		  HAL_Delay(500); 
+break;
+		case 7:
+			p7red();
+			HAL_Delay(500);
+			p7off();
+		  HAL_Delay(500); 
+break;
+		case 10:
+			p10red();
+			HAL_Delay(500);
+			p10off();
+		  HAL_Delay(500); 
+break;
+		case 12:
+			p12red();
+			HAL_Delay(500);
+			p12off();
+		  HAL_Delay(500); 
+break;
+		case 14:
+			p14red();
+			HAL_Delay(500);
+			p14off();
+		  HAL_Delay(500); 
+break;
+		case 16:
+			p16red();
+			HAL_Delay(500);
+			p16off();
+		  HAL_Delay(500); 
+break;
+		case 17:
+			p17red();
+			HAL_Delay(500);
+			p17off();
+		  HAL_Delay(500); 
+break;
+		case 19:
+			p19red();
+			HAL_Delay(500);
+			p19off();
+		  HAL_Delay(500); 
+break;
+		case 21:
+			p21red();
+			HAL_Delay(500);
+			p21off();
+		  HAL_Delay(500); 
+break;
+		case 23:
+			p23red();
+			HAL_Delay(500);
+			p23off();
+		  HAL_Delay(500); 
+break;
+		case 26:
+			p26red();
+			HAL_Delay(500);
+			p26off();
+		  HAL_Delay(500); 
+break;
+		case 28:
+			p28red();
+			HAL_Delay(500);
+			p28off();
+		  HAL_Delay(500); 
+break;
+		case 30:
+			p30red();
+			HAL_Delay(500);
+			p30off();
+		  HAL_Delay(500); 
+break;
+		case 32:
+			p32red();
+			HAL_Delay(500);
+			p32off();
+		  HAL_Delay(500); 
+break;
+		case 33:
+			p33red();
+			HAL_Delay(500);
+			p33off();
+		  HAL_Delay(500); 
+break;
+		case 35:
+			p35red();
+			HAL_Delay(500);
+			p35off();
+		  HAL_Delay(500); 
+break;
+		case 37:
+			p37red();
+			HAL_Delay(500);
+			p37off();
+		  HAL_Delay(500); 
+break;
+		case 39:
+			p39red();
+			HAL_Delay(500);
+			p39off();
+		  HAL_Delay(500); 
+break;
+		case 42:
+			p42red();
+			HAL_Delay(500);
+			p42off();
+		  HAL_Delay(500); 
+break;
+		case 44:
+			p44red();
+			HAL_Delay(500);
+			p44off();
+		  HAL_Delay(500); 
+break;
+		case 46:
+			p46red();
+			HAL_Delay(500);
+			p46off();
+		  HAL_Delay(500); 
+break;
+		case 48:
+			p48red();
+			HAL_Delay(500);
+			p48off();
+		  HAL_Delay(500); 
+break;
+		case 49:
+			p49red();
+			HAL_Delay(500);
+			p49off();
+		  HAL_Delay(500); 
+break;
+		case 51:
+			p51red();
+			HAL_Delay(500);
+			p51off();
+		  HAL_Delay(500); 
+break;
+		case 53:
+			p53red();
+			HAL_Delay(500);
+			p53off();
+		  HAL_Delay(500); 
+break;
+		case 55:
+			p55red();
+			HAL_Delay(500);
+			p55off();
+		  HAL_Delay(500); 
+break;
+		case 58:
+			p58red();
+			HAL_Delay(500);
+			p58off();
+		  HAL_Delay(500); 
+break;
+		case 60:
+			p60red();
+			HAL_Delay(500);
+			p60off();
+		  HAL_Delay(500); 
+break;
+		case 62:
+			p62red();
+			HAL_Delay(500);
+			p62off();
+		  HAL_Delay(500); 
+break;
+		case 64:
+			p64red();
+			HAL_Delay(500);
+			p64off();
+		  HAL_Delay(500); 
+break;
+}}
+
+
+////////// BLUE BLINK //////////
+
+
+void blueblink(int e) {
+	switch (e){
+		case 1:
+			p1blue();
+			HAL_Delay(500);
+			p1off();
+		  HAL_Delay(500); 
+break;
+		case 3:
+			p3blue();
+			HAL_Delay(500);
+			p3off();
+		  HAL_Delay(500); 
+break;
+		case 5:
+			p5blue();
+			HAL_Delay(500);
+			p5off();
+		  HAL_Delay(500); 
+break;
+		case 7:
+			p7blue();
+			HAL_Delay(500);
+			p7off();
+		  HAL_Delay(500); 
+break;
+		case 10:
+			p10blue();
+			HAL_Delay(500);
+			p10off();
+		  HAL_Delay(500); 
+break;
+		case 12:
+			p12blue();
+			HAL_Delay(500);
+			p12off();
+		  HAL_Delay(500); 
+break;
+		case 14:
+			p14blue();
+			HAL_Delay(500);
+			p14off();
+		  HAL_Delay(500); 
+break;
+		case 16:
+			p16blue();
+			HAL_Delay(500);
+			p16off();
+		  HAL_Delay(500); 
+break;
+		case 17:
+			p17blue();
+			HAL_Delay(500);
+			p17off();
+		  HAL_Delay(500); 
+break;
+		case 19:
+			p19blue();
+			HAL_Delay(500);
+			p19off();
+		  HAL_Delay(500); 
+break;
+		case 21:
+			p21blue();
+			HAL_Delay(500);
+			p21off();
+		  HAL_Delay(500); 
+break;
+		case 23:
+			p23blue();
+			HAL_Delay(500);
+			p23off();
+		  HAL_Delay(500); 
+break;
+		case 26:
+			p26blue();
+			HAL_Delay(500);
+			p26off();
+		  HAL_Delay(500); 
+break;
+		case 28:
+			p28blue();
+			HAL_Delay(500);
+			p28off();
+		  HAL_Delay(500); 
+break;
+		case 30:
+			p30blue();
+			HAL_Delay(500);
+			p30off();
+		  HAL_Delay(500); 
+break;
+		case 32:
+			p32blue();
+			HAL_Delay(500);
+			p32off();
+		  HAL_Delay(500); 
+break;
+		case 33:
+			p33blue();
+			HAL_Delay(500);
+			p33off();
+		  HAL_Delay(500); 
+break;
+		case 35:
+			p35blue();
+			HAL_Delay(500);
+			p35off();
+		  HAL_Delay(500); 
+break;
+		case 37:
+			p37blue();
+			HAL_Delay(500);
+			p37off();
+		  HAL_Delay(500); 
+break;
+		case 39:
+			p39blue();
+			HAL_Delay(500);
+			p39off();
+		  HAL_Delay(500); 
+break;
+		case 42:
+			p42blue();
+			HAL_Delay(500);
+			p42off();
+		  HAL_Delay(500); 
+break;
+		case 44:
+			p44blue();
+			HAL_Delay(500);
+			p44off();
+		  HAL_Delay(500); 
+break;
+		case 46:
+			p46blue();
+			HAL_Delay(500);
+			p46off();
+		  HAL_Delay(500); 
+break;
+		case 48:
+			p48blue();
+			HAL_Delay(500);
+			p48off();
+		  HAL_Delay(500); 
+break;
+		case 49:
+			p49blue();
+			HAL_Delay(500);
+			p49off();
+		  HAL_Delay(500); 
+break;
+		case 51:
+			p51blue();
+			HAL_Delay(500);
+			p51off();
+		  HAL_Delay(500); 
+break;
+		case 53:
+			p53blue();
+			HAL_Delay(500);
+			p53off();
+		  HAL_Delay(500); 
+break;
+		case 55:
+			p55blue();
+			HAL_Delay(500);
+			p55off();
+		  HAL_Delay(500); 
+break;
+		case 58:
+			p58blue();
+			HAL_Delay(500);
+			p58off();
+		  HAL_Delay(500); 
+break;
+		case 60:
+			p60blue();
+			HAL_Delay(500);
+			p60off();
+		  HAL_Delay(500); 
+break;
+		case 62:
+			p62blue();
+			HAL_Delay(500);
+			p62off();
+		  HAL_Delay(500); 
+break;
+		case 64:
+			p64blue();
+			HAL_Delay(500);
+			p64off();
+		  HAL_Delay(500); 
+break;
+}}
+
+
+
+////////// CHECK //////////
+
+int g;
+int check(int f) {
+	switch(f){
+		case 1:
+if (HAL_GPIO_ReadPin(p1_GPIO_Port,p1_Pin)==1){
+	g=1;
+}
+if (HAL_GPIO_ReadPin(p1_GPIO_Port,p1_Pin)==0){
+	g=0;
+}
+    break;
+		case 3:
+if (HAL_GPIO_ReadPin(p3_GPIO_Port,p3_Pin)==1){
+	g=1;
+}
+if (HAL_GPIO_ReadPin(p3_GPIO_Port,p3_Pin)==0){
+	g=0;
+}
+		break;
+		case 5:
+			if (HAL_GPIO_ReadPin(p5_GPIO_Port,p5_Pin)==1){
+	g=1;
+}
+if (HAL_GPIO_ReadPin(p5_GPIO_Port,p5_Pin)==0){
+	g=0;
+}
+		break;
+		case 7:
+			if (HAL_GPIO_ReadPin(p7_GPIO_Port,p7_Pin)==1){
+	g=1;
+}
+if (HAL_GPIO_ReadPin(p7_GPIO_Port,p7_Pin)==0){
+	g=0;
+}
+		break;
+		case 10:
+			if (HAL_GPIO_ReadPin(p10_GPIO_Port,p10_Pin)==1){
+	g=1;
+}
+if (HAL_GPIO_ReadPin(p10_GPIO_Port,p10_Pin)==0){
+	g=0;
+}
+		break;
+		case 12:
+			if (HAL_GPIO_ReadPin(p12_GPIO_Port,p12_Pin)==1){
+	g=1;
+}
+if (HAL_GPIO_ReadPin(p12_GPIO_Port,p12_Pin)==0){
+	g=0;
+}
+		break;
+		case 14:
+			if (HAL_GPIO_ReadPin(p14_GPIO_Port,p14_Pin)==1){
+	g=1;
+}
+if (HAL_GPIO_ReadPin(p14_GPIO_Port,p14_Pin)==0){
+	g=0;
+}
+		break;
+		case 16:
+			if (HAL_GPIO_ReadPin(p16_GPIO_Port,p16_Pin)==1){
+	g=1;
+}
+if (HAL_GPIO_ReadPin(p16_GPIO_Port,p16_Pin)==0){
+	g=0;
+}
+		break;
+		case 17:
+		if (HAL_GPIO_ReadPin(p17_GPIO_Port,p17_Pin)==1){
+	g=1;
+}
+if (HAL_GPIO_ReadPin(p17_GPIO_Port,p17_Pin)==0){
+	g=0;
+}
+		break;
+		case 19:
+		if (HAL_GPIO_ReadPin(p19_GPIO_Port,p19_Pin)==1){
+	g=1;
+}
+if (HAL_GPIO_ReadPin(p19_GPIO_Port,p19_Pin)==0){
+	g=0;
+}
+		break;
+		case 21:
+		if (HAL_GPIO_ReadPin(p21_GPIO_Port,p21_Pin)==1){
+	g=1;
+}
+if (HAL_GPIO_ReadPin(p21_GPIO_Port,p21_Pin)==0){
+	g=0;
+}
+		break;
+		case 23:
+			if (HAL_GPIO_ReadPin(p23_GPIO_Port,p23_Pin)==1){
+	g=1;
+}
+if (HAL_GPIO_ReadPin(p23_GPIO_Port,p23_Pin)==0){
+	g=0;
+}
+		break;
+		case 26:
+		if (HAL_GPIO_ReadPin(p26_GPIO_Port,p26_Pin)==1){
+	g=1;
+}
+if (HAL_GPIO_ReadPin(p26_GPIO_Port,p26_Pin)==0){
+	g=0;
+}
+		break;
+		case 28:
+			if (HAL_GPIO_ReadPin(p28_GPIO_Port,p28_Pin)==1){
+	g=1;
+}
+if (HAL_GPIO_ReadPin(p28_GPIO_Port,p28_Pin)==0){
+	g=0;
+}
+		break;
+		case 30:
+			if (HAL_GPIO_ReadPin(p30_GPIO_Port,p30_Pin)==1){
+	g=1;
+}
+if (HAL_GPIO_ReadPin(p30_GPIO_Port,p30_Pin)==0){
+	g=0;
+}
+		break;
+		case 32:
+		if (HAL_GPIO_ReadPin(p32_GPIO_Port,p32_Pin)==1){
+	g=1;
+}
+if (HAL_GPIO_ReadPin(p32_GPIO_Port,p32_Pin)==0){
+	g=0;
+}
+		break;
+		case 33:
+		if (HAL_GPIO_ReadPin(p33_GPIO_Port,p33_Pin)==1){
+	g=1;
+}
+if (HAL_GPIO_ReadPin(p33_GPIO_Port,p33_Pin)==0){
+	g=0;
+}
+		break;
+		case 35:
+		if (HAL_GPIO_ReadPin(p35_GPIO_Port,p35_Pin)==1){
+	g=1;
+}
+if (HAL_GPIO_ReadPin(p35_GPIO_Port,p35_Pin)==0){
+	g=0;
+}
+		break;
+		case 37:
+			if (HAL_GPIO_ReadPin(p37_GPIO_Port,p37_Pin)==1){
+	g=1;
+}
+if (HAL_GPIO_ReadPin(p37_GPIO_Port,p37_Pin)==0){
+	g=0;
+}
+		break;
+		case 39:
+			if (HAL_GPIO_ReadPin(p39_GPIO_Port,p39_Pin)==1){
+	g=1;
+}
+if (HAL_GPIO_ReadPin(p39_GPIO_Port,p39_Pin)==0){
+	g=0;
+}
+		break;
+		case 42:
+			if (HAL_GPIO_ReadPin(p42_GPIO_Port,p42_Pin)==1){
+	g=1;
+}
+if (HAL_GPIO_ReadPin(p42_GPIO_Port,p42_Pin)==0){
+	g=0;
+}
+		break;
+		case 44:
+			if (HAL_GPIO_ReadPin(p44_GPIO_Port,p44_Pin)==1){
+	g=1;
+}
+if (HAL_GPIO_ReadPin(p44_GPIO_Port,p44_Pin)==0){
+	g=0;
+}
+		break;
+		case 46:
+			if (HAL_GPIO_ReadPin(p46_GPIO_Port,p46_Pin)==1){
+	g=1;
+}
+if (HAL_GPIO_ReadPin(p46_GPIO_Port,p46_Pin)==0){
+	g=0;
+}
+		break;
+		case 48:
+			if (HAL_GPIO_ReadPin(p48_GPIO_Port,p48_Pin)==1){
+	g=1;
+}
+if (HAL_GPIO_ReadPin(p48_GPIO_Port,p48_Pin)==0){
+	g=0;
+}
+		break;
+		case 49:
+		if (HAL_GPIO_ReadPin(p49_GPIO_Port,p49_Pin)==1){
+	g=1;
+}
+if (HAL_GPIO_ReadPin(p49_GPIO_Port,p49_Pin)==0){
+	g=0;
+}
+		break;
+		case 51:
+			if (HAL_GPIO_ReadPin(p51_GPIO_Port,p51_Pin)==1){
+	g=1;
+}
+if (HAL_GPIO_ReadPin(p51_GPIO_Port,p51_Pin)==0){
+	g=0;
+}
+		break;
+		case 53:
+			if (HAL_GPIO_ReadPin(p53_GPIO_Port,p53_Pin)==1){
+	g=1;
+}
+if (HAL_GPIO_ReadPin(p53_GPIO_Port,p53_Pin)==0){
+	g=0;
+}
+		break;
+		case 55:
+			if (HAL_GPIO_ReadPin(p55_GPIO_Port,p55_Pin)==1){
+	g=1;
+}
+if (HAL_GPIO_ReadPin(p55_GPIO_Port,p55_Pin)==0){
+	g=0;
+}
+		break;
+		case 58:
+			if (HAL_GPIO_ReadPin(p58_GPIO_Port,p58_Pin)==1){
+	g=1;
+}
+if (HAL_GPIO_ReadPin(p58_GPIO_Port,p58_Pin)==0){
+	g=0;
+}
+		break;
+		case 60:
+			if (HAL_GPIO_ReadPin(p60_GPIO_Port,p60_Pin)==1){
+	g=1;
+}
+if (HAL_GPIO_ReadPin(p60_GPIO_Port,p60_Pin)==0){
+	g=0;
+}
+		break;
+		case 62:
+			if (HAL_GPIO_ReadPin(p62_GPIO_Port,p62_Pin)==1){
+	g=1;
+}
+if (HAL_GPIO_ReadPin(p62_GPIO_Port,p62_Pin)==0){
+	g=0;
+}
+		break;
+		case 64:
+			if (HAL_GPIO_ReadPin(p64_GPIO_Port,p64_Pin)==1){
+	g=1;
+}
+if (HAL_GPIO_ReadPin(p64_GPIO_Port,p64_Pin)==0){
+	g=0;
+}
+		break;
+}
+return g;}
+
+uint8_t rx1,av;
+int8_t dif;
+uint8_t rx6,av1;
+int8_t dif1;
+//uint8_t buf[1]={50};
+uint8_t rx,rx5;
+//uint8_t buf1[1]={100};
+//uint8_t buf2[12]="Ne tavo eile";
+/* USER CODE END 0 */
+
+/**
+  * @brief  The application entry point.
+  * @retval int
+  */
+int main(void)
+{
+  /* USER CODE BEGIN 1 */
+
+  /* USER CODE END 1 */
+
+  /* MCU Configuration--------------------------------------------------------*/
+
+  /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
+  HAL_Init();
+
+  /* USER CODE BEGIN Init */
+
+  /* USER CODE END Init */
+
+  /* Configure the system clock */
+  SystemClock_Config();
+
+  /* USER CODE BEGIN SysInit */
+
+  /* USER CODE END SysInit */
+
+  /* Initialize all configured peripherals */
+  MX_GPIO_Init();
+  MX_DMA_Init();
+  MX_USART3_UART_Init();
+  MX_USART1_UART_Init();
+  /* USER CODE BEGIN 2 */
+//	uint8_t q=5;
+HAL_UART_Receive_DMA(&huart1,&rx,1);
+//HAL_UART_Receive_DMA(&huart3,&c,1);
+HAL_UART_Receive_DMA(&huart3,&rx,1);
+//HAL_UART_Receive_DMA(&huart3, &rx, 1);
+//HAL_UART_Receive_DMA(&huart1, &rx5, 1);
+//HAL_UART_Transmit_DMA(&huart2, &q, sizeof(q));
+//HAL_UART_Transmit_DMA(&huart3, buf, 1);
+
+//GPIOB->MODER &= ~(GPIO_MODER_MODER4);
+//GPIOB->MODER &= ~(GPIO_MODER_MODER5);
+//GPIOB->MODER |= GPIO_MODER_MODER4_0;
+//GPIOB->MODER |= GPIO_MODER_MODER5_0;
+
+//HAL_GPIO_WritePin(p1_GPIO_Port, p1_Pin, GPIO_PIN_SET);
+////HAL_GPIO_WritePin(p19_GPIO_Port, p19_Pin, GPIO_PIN_SET);
+//HAL_GPIO_WritePin(p10_GPIO_Port, p10_Pin, GPIO_PIN_RESET);
+//GPIOA->MODER &= ~(GPIO_MODER_MODER6);
+
+    GPIOC->MODER |= GPIO_MODER_MODER10_0;
+		HAL_GPIO_WritePin(p1_GPIO_Port, p1_Pin, GPIO_PIN_SET);
+		GPIOB->MODER |= GPIO_MODER_MODER3_0;
+		HAL_GPIO_WritePin(p3_GPIO_Port, p3_Pin, GPIO_PIN_SET);
+		GPIOB->MODER |= GPIO_MODER_MODER5_0;
+		HAL_GPIO_WritePin(p5_GPIO_Port, p5_Pin, GPIO_PIN_SET);
+		GPIOB->MODER |= GPIO_MODER_MODER4_0;
+		HAL_GPIO_WritePin(p7_GPIO_Port, p7_Pin, GPIO_PIN_SET);
+		GPIOA->MODER |= GPIO_MODER_MODER8_0;
+		HAL_GPIO_WritePin(p10_GPIO_Port, p10_Pin, GPIO_PIN_SET);
+		GPIOC->MODER |= GPIO_MODER_MODER12_0;
+		HAL_GPIO_WritePin(p12_GPIO_Port, p12_Pin, GPIO_PIN_SET);
+		GPIOC->MODER |= GPIO_MODER_MODER7_0;
+		HAL_GPIO_WritePin(p14_GPIO_Port, p14_Pin, GPIO_PIN_SET);
+		GPIOB->MODER |= GPIO_MODER_MODER6_0;
+		HAL_GPIO_WritePin(p16_GPIO_Port, p16_Pin, GPIO_PIN_SET);
+		GPIOA->MODER |= GPIO_MODER_MODER7_0;
+		HAL_GPIO_WritePin(p17_GPIO_Port, p17_Pin, GPIO_PIN_SET);
+		GPIOA->MODER |= GPIO_MODER_MODER6_0;
+		HAL_GPIO_WritePin(p19_GPIO_Port, p19_Pin, GPIO_PIN_SET);
+		GPIOA->MODER |= GPIO_MODER_MODER5_0;
+		HAL_GPIO_WritePin(p21_GPIO_Port, p21_Pin, GPIO_PIN_SET);
+		GPIOB->MODER |= GPIO_MODER_MODER9_0;
+		HAL_GPIO_WritePin(p23_GPIO_Port, p23_Pin, GPIO_PIN_SET);
+		
+		HAL_GPIO_WritePin(p42_GPIO_Port, p42_Pin, GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(p44_GPIO_Port, p44_Pin, GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(p46_GPIO_Port, p46_Pin, GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(p48_GPIO_Port, p48_Pin, GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(p49_GPIO_Port, p49_Pin, GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(p51_GPIO_Port, p51_Pin, GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(p53_GPIO_Port, p53_Pin, GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(p55_GPIO_Port, p55_Pin, GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(p58_GPIO_Port, p58_Pin, GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(p60_GPIO_Port, p60_Pin, GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(p62_GPIO_Port, p62_Pin, GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(p64_GPIO_Port, p64_Pin, GPIO_PIN_RESET);
+		
+		GPIOB->MODER &= ~(GPIO_MODER_MODER8);
+		GPIOC->MODER &= ~(GPIO_MODER_MODER9);
+		GPIOC->MODER &= ~(GPIO_MODER_MODER8);
+		GPIOC->MODER &= ~(GPIO_MODER_MODER6);
+		GPIOA->MODER &= ~(GPIO_MODER_MODER12);
+		GPIOA->MODER &= ~(GPIO_MODER_MODER11);
+		GPIOB->MODER &= ~(GPIO_MODER_MODER12);
+		GPIOB->MODER &= ~(GPIO_MODER_MODER2);
+		
+//		p64off();
+//		redblinkp64();
+//		blueblinkp64();
+//		p64red();
+//		p64blue();
+
+  /* USER CODE END 2 */
+
+  /* Infinite loop */
+  /* USER CODE BEGIN WHILE */
+  while (1)
+  {
+    /* USER CODE END WHILE */
+
+    /* USER CODE BEGIN 3 */
+		
+		
+//		if (rx==0) {
+//			for (av=1; av<65;av++){
+//				onred(av);
+//			}}
+//			if (rx==1) {
+//			for (av=1; av<65;av++){
+//				onblue(av);
+//			}}
+//			rx=2;
+		if (rx>0) {
+			rx1=rx;
+			check(rx);
+			while (rx>0){
+				while (g==1){
+			redblink(rx);
+					dif=rx1-rx;
+					if (dif!=0){
+						off(rx1);
+						onred(rx);
+						g=2;
+						if (dif<-9){
+							av=(rx+rx1)/2;
+							off(av);
+						}
+				    if (dif>9){
+							av=(rx+rx1)/2;
+							off(av);
+						}}}
+				while (g==0){
+			blueblink(rx);
+					dif=rx1-rx;
+					if (dif!=0){
+						off(rx1);
+						onblue(rx);
+						g=2;
+						if (dif<-9){
+							av=(rx+rx1)/2;
+							off(av);
+						}
+					  if (dif>9){
+							av=(rx+rx1)/2;
+							off(av);
+						}}}
+				rx=0;
+				}
+			}
+		
+//			if (rx5>0) {
+//			rx6=rx5;
+//			check(rx5);
+//			while (rx5>0){
+//				while (g==1){
+//			redblink(rx5);
+//					dif1=rx6-rx5;
+//					if (dif1!=0){
+//						off(rx6);
+//						onred(rx5);
+//						g=2;
+//						if (dif1<-9){
+//							av1=(rx5+rx6)/2;
+//							off(av1);
+//						}
+//				    if (dif1>9){
+//							av1=(rx5+rx6)/2;
+//							off(av1);
+//						}}}
+//				while (g==0){
+//			blueblink(rx5);
+//					dif=rx6-rx5;
+//					if (dif1!=0){
+//						off(rx6);
+//						onblue(rx5);
+//						g=2;
+//						if (dif1<-9){
+//							av1=(rx5+rx6)/2;
+//							off(av1);
+//						}
+//					  if (dif1>9){
+//							av1=(rx5+rx6)/2;
+//							off(av1);
+//						}}}
+//				rx5=0;
+//				}
+//			}
+			
+			
+			
+			
+		
+		
+//		if (rx>0) {
+//			if (rx==1){
+//				if (HAL_GPIO_ReadPin(p1_GPIO_Port,p1_Pin)==1){
+//					while (rx>0){
+//					redblinkp1();
+//						if (rx==10) {
+//							p1off();
+//							p10red(); 
+//							rx=0;
+//							break;
+//						}
+//						if (rx==19) {
+//							p1off();
+//							p19red();
+//							p10off();
+//							rx=0;
+//							break;
+//						}
+//				}}
+//		    if ((GPIOA->MODER |= GPIO_MODER_MODER10_0) && HAL_GPIO_ReadPin(p1_GPIO_Port,p1_Pin)==0){
+//					while (rx>0){
+//					blueblinkp1();
+//						if (rx==10) {
+//							p1off();
+//							p10blue(); 
+//						}
+//						if (rx==19) {
+//							p1off();
+//							p19blue();
+//							p10off();
+//						}
+//				}}}
+//			
+//				
+//			}
+		
+		
+		
+		
+		
+		
+		
+//		GPIOA->MODER |= GPIO_MODER_MODER10_0;
+//		HAL_GPIO_WritePin(p1_GPIO_Port, p1_Pin, GPIO_PIN_SET);
+//		GPIOB->MODER |= GPIO_MODER_MODER3_0;
+//		HAL_GPIO_WritePin(p3_GPIO_Port, p3_Pin, GPIO_PIN_SET);
+//		GPIOB->MODER |= GPIO_MODER_MODER5_0;
+//		HAL_GPIO_WritePin(p5_GPIO_Port, p5_Pin, GPIO_PIN_SET);
+//		GPIOB->MODER |= GPIO_MODER_MODER4_0;
+//		HAL_GPIO_WritePin(p7_GPIO_Port, p7_Pin, GPIO_PIN_SET);
+		
+//		GPIOA->MODER |= GPIO_MODER_MODER10_0;
+//		HAL_GPIO_WritePin(p1_GPIO_Port, p1_Pin, GPIO_PIN_SET);
+//		GPIOB->MODER |= GPIO_MODER_MODER3_0;
+//		HAL_GPIO_WritePin(p3_GPIO_Port, p3_Pin, GPIO_PIN_SET);
+//		GPIOB->MODER |= GPIO_MODER_MODER5_0;
+//		HAL_GPIO_WritePin(p5_GPIO_Port, p5_Pin, GPIO_PIN_SET);
+//		GPIOB->MODER |= GPIO_MODER_MODER4_0;
+//		HAL_GPIO_WritePin(p7_GPIO_Port, p7_Pin, GPIO_PIN_SET);
+//		GPIOA->MODER |= GPIO_MODER_MODER8_0;
+//		HAL_GPIO_WritePin(p10_GPIO_Port, p10_Pin, GPIO_PIN_SET);
+//		GPIOA->MODER |= GPIO_MODER_MODER9_0;
+//		HAL_GPIO_WritePin(p12_GPIO_Port, p12_Pin, GPIO_PIN_SET);
+//		GPIOC->MODER |= GPIO_MODER_MODER7_0;
+//		HAL_GPIO_WritePin(p14_GPIO_Port, p14_Pin, GPIO_PIN_SET);
+//		GPIOB->MODER |= GPIO_MODER_MODER6_0;
+//		HAL_GPIO_WritePin(p16_GPIO_Port, p16_Pin, GPIO_PIN_SET);
+//		GPIOA->MODER |= GPIO_MODER_MODER7_0;
+//		HAL_GPIO_WritePin(p17_GPIO_Port, p17_Pin, GPIO_PIN_SET);
+//		GPIOA->MODER |= GPIO_MODER_MODER6_0;
+//		HAL_GPIO_WritePin(p19_GPIO_Port, p19_Pin, GPIO_PIN_SET);
+//		GPIOA->MODER |= GPIO_MODER_MODER5_0;
+//		HAL_GPIO_WritePin(p21_GPIO_Port, p21_Pin, GPIO_PIN_SET);
+//		GPIOB->MODER |= GPIO_MODER_MODER9_0;
+//		HAL_GPIO_WritePin(p23_GPIO_Port, p23_Pin, GPIO_PIN_SET);
+//		GPIOB->MODER |= GPIO_MODER_MODER8_0;
+//		HAL_GPIO_WritePin(p26_GPIO_Port, p26_Pin, GPIO_PIN_SET);
+//		GPIOC->MODER |= GPIO_MODER_MODER9_0;
+//		HAL_GPIO_WritePin(p28_GPIO_Port, p28_Pin, GPIO_PIN_SET);
+//		GPIOC->MODER |= GPIO_MODER_MODER8_0;
+//		HAL_GPIO_WritePin(p30_GPIO_Port, p30_Pin, GPIO_PIN_SET);
+//		GPIOC->MODER |= GPIO_MODER_MODER6_0;
+//		HAL_GPIO_WritePin(p32_GPIO_Port, p32_Pin, GPIO_PIN_SET);
+//		GPIOA->MODER |= GPIO_MODER_MODER12_0;
+//		HAL_GPIO_WritePin(p33_GPIO_Port, p33_Pin, GPIO_PIN_SET);
+//		GPIOA->MODER |= GPIO_MODER_MODER11_0;
+//		HAL_GPIO_WritePin(p35_GPIO_Port, p35_Pin, GPIO_PIN_SET);
+//		GPIOB->MODER |= GPIO_MODER_MODER12_0;
+//		HAL_GPIO_WritePin(p37_GPIO_Port, p37_Pin, GPIO_PIN_SET);
+//		GPIOB->MODER |= GPIO_MODER_MODER2_0;
+//		HAL_GPIO_WritePin(p39_GPIO_Port, p39_Pin, GPIO_PIN_SET);
+//		GPIOB->MODER |= GPIO_MODER_MODER1_0;
+//		HAL_GPIO_WritePin(p42_GPIO_Port, p42_Pin, GPIO_PIN_SET);
+//		GPIOB->MODER |= GPIO_MODER_MODER15_0;
+//		HAL_GPIO_WritePin(p44_GPIO_Port, p44_Pin, GPIO_PIN_SET);
+//		GPIOB->MODER |= GPIO_MODER_MODER14_0;
+//		HAL_GPIO_WritePin(p46_GPIO_Port, p46_Pin, GPIO_PIN_SET);
+//		GPIOB->MODER |= GPIO_MODER_MODER13_0;
+//		HAL_GPIO_WritePin(p48_GPIO_Port, p48_Pin, GPIO_PIN_SET);
+//		GPIOC->MODER |= GPIO_MODER_MODER4_0;
+//		HAL_GPIO_WritePin(p49_GPIO_Port, p49_Pin, GPIO_PIN_SET);
+//		GPIOA->MODER |= GPIO_MODER_MODER1_0;
+//		HAL_GPIO_WritePin(p51_GPIO_Port, p51_Pin, GPIO_PIN_SET);
+//		GPIOA->MODER |= GPIO_MODER_MODER4_0;
+//		HAL_GPIO_WritePin(p53_GPIO_Port, p53_Pin, GPIO_PIN_SET);
+//		GPIOB->MODER |= GPIO_MODER_MODER0_0;
+//		HAL_GPIO_WritePin(p55_GPIO_Port, p55_Pin, GPIO_PIN_SET);
+//		GPIOC->MODER |= GPIO_MODER_MODER1_0;
+//		HAL_GPIO_WritePin(p58_GPIO_Port, p58_Pin, GPIO_PIN_SET);
+//		GPIOC->MODER |= GPIO_MODER_MODER0_0;
+//		HAL_GPIO_WritePin(p60_GPIO_Port, p60_Pin, GPIO_PIN_SET);
+//		GPIOC->MODER |= GPIO_MODER_MODER3_0;
+//		HAL_GPIO_WritePin(p62_GPIO_Port, p62_Pin, GPIO_PIN_SET);
+//		GPIOC->MODER |= GPIO_MODER_MODER2_0;
+//		HAL_GPIO_WritePin(p64_GPIO_Port, p64_Pin, GPIO_PIN_SET);
+//		HAL_Delay(1000);
+//		HAL_GPIO_WritePin(p1_GPIO_Port, p1_Pin, GPIO_PIN_RESET);
+//		HAL_GPIO_WritePin(p3_GPIO_Port, p3_Pin, GPIO_PIN_RESET);
+//		HAL_GPIO_WritePin(p5_GPIO_Port, p5_Pin, GPIO_PIN_RESET);
+//		HAL_GPIO_WritePin(p7_GPIO_Port, p7_Pin, GPIO_PIN_RESET);
+//		HAL_GPIO_WritePin(p10_GPIO_Port, p10_Pin, GPIO_PIN_RESET);
+//		HAL_GPIO_WritePin(p12_GPIO_Port, p12_Pin, GPIO_PIN_RESET);
+//		HAL_GPIO_WritePin(p14_GPIO_Port, p14_Pin, GPIO_PIN_RESET);
+//		HAL_GPIO_WritePin(p16_GPIO_Port, p16_Pin, GPIO_PIN_RESET);
+//		HAL_GPIO_WritePin(p17_GPIO_Port, p17_Pin, GPIO_PIN_RESET);
+//		HAL_GPIO_WritePin(p19_GPIO_Port, p19_Pin, GPIO_PIN_RESET);
+//		HAL_GPIO_WritePin(p21_GPIO_Port, p21_Pin, GPIO_PIN_RESET);
+//		HAL_GPIO_WritePin(p23_GPIO_Port, p23_Pin, GPIO_PIN_RESET);
+//		HAL_GPIO_WritePin(p26_GPIO_Port, p26_Pin, GPIO_PIN_RESET);
+//		HAL_GPIO_WritePin(p28_GPIO_Port, p28_Pin, GPIO_PIN_RESET);
+//		HAL_GPIO_WritePin(p30_GPIO_Port, p30_Pin, GPIO_PIN_RESET);
+//		HAL_GPIO_WritePin(p32_GPIO_Port, p32_Pin, GPIO_PIN_RESET);
+//		HAL_GPIO_WritePin(p33_GPIO_Port, p33_Pin, GPIO_PIN_RESET);
+//		HAL_GPIO_WritePin(p35_GPIO_Port, p35_Pin, GPIO_PIN_RESET);
+//		HAL_GPIO_WritePin(p37_GPIO_Port, p37_Pin, GPIO_PIN_RESET);
+//		HAL_GPIO_WritePin(p39_GPIO_Port, p39_Pin, GPIO_PIN_RESET);
+//		HAL_GPIO_WritePin(p42_GPIO_Port, p42_Pin, GPIO_PIN_RESET);
+//		HAL_GPIO_WritePin(p44_GPIO_Port, p44_Pin, GPIO_PIN_RESET);
+//		HAL_GPIO_WritePin(p46_GPIO_Port, p46_Pin, GPIO_PIN_RESET);
+//		HAL_GPIO_WritePin(p48_GPIO_Port, p48_Pin, GPIO_PIN_RESET);
+//		HAL_GPIO_WritePin(p49_GPIO_Port, p49_Pin, GPIO_PIN_RESET);
+//		HAL_GPIO_WritePin(p51_GPIO_Port, p51_Pin, GPIO_PIN_RESET);
+//		HAL_GPIO_WritePin(p53_GPIO_Port, p53_Pin, GPIO_PIN_RESET);
+//		HAL_GPIO_WritePin(p55_GPIO_Port, p55_Pin, GPIO_PIN_RESET);
+//		HAL_GPIO_WritePin(p58_GPIO_Port, p58_Pin, GPIO_PIN_RESET);
+//		HAL_GPIO_WritePin(p60_GPIO_Port, p60_Pin, GPIO_PIN_RESET);
+//		HAL_GPIO_WritePin(p62_GPIO_Port, p62_Pin, GPIO_PIN_RESET);
+//		HAL_GPIO_WritePin(p64_GPIO_Port, p64_Pin, GPIO_PIN_RESET);
+//		HAL_Delay(1000);
+//		GPIOA->MODER &= ~(GPIO_MODER_MODER10);
+//		GPIOB->MODER &= ~(GPIO_MODER_MODER3);
+//		GPIOB->MODER &= ~(GPIO_MODER_MODER5);
+//		GPIOB->MODER &= ~(GPIO_MODER_MODER4);
+//		GPIOA->MODER &= ~(GPIO_MODER_MODER8);
+//		GPIOA->MODER &= ~(GPIO_MODER_MODER9);
+//		GPIOC->MODER &= ~(GPIO_MODER_MODER7);
+//		GPIOB->MODER &= ~(GPIO_MODER_MODER6);
+//		GPIOA->MODER &= ~(GPIO_MODER_MODER7);
+//		GPIOA->MODER &= ~(GPIO_MODER_MODER6);
+//		GPIOA->MODER &= ~(GPIO_MODER_MODER5);
+//		GPIOB->MODER &= ~(GPIO_MODER_MODER9);
+//		GPIOB->MODER &= ~(GPIO_MODER_MODER8);
+//		GPIOC->MODER &= ~(GPIO_MODER_MODER9);
+//		GPIOC->MODER &= ~(GPIO_MODER_MODER8);
+//		GPIOC->MODER &= ~(GPIO_MODER_MODER6);
+//		GPIOA->MODER &= ~(GPIO_MODER_MODER12);
+//		GPIOA->MODER &= ~(GPIO_MODER_MODER11);
+//		GPIOB->MODER &= ~(GPIO_MODER_MODER12);
+//		GPIOB->MODER &= ~(GPIO_MODER_MODER2);
+//		GPIOB->MODER &= ~(GPIO_MODER_MODER1);
+//		GPIOB->MODER &= ~(GPIO_MODER_MODER15);
+//		GPIOB->MODER &= ~(GPIO_MODER_MODER14);
+//		GPIOB->MODER &= ~(GPIO_MODER_MODER13);
+//		GPIOC->MODER &= ~(GPIO_MODER_MODER4);
+//		GPIOA->MODER &= ~(GPIO_MODER_MODER1);
+//		GPIOA->MODER &= ~(GPIO_MODER_MODER4);
+//		GPIOB->MODER &= ~(GPIO_MODER_MODER0);
+//		GPIOC->MODER &= ~(GPIO_MODER_MODER1);
+//		GPIOC->MODER &= ~(GPIO_MODER_MODER0);
+//		GPIOC->MODER &= ~(GPIO_MODER_MODER3);
+//		GPIOC->MODER &= ~(GPIO_MODER_MODER2);
+//		HAL_Delay(1000);
+		
+//		if (rx==1) {
+//		while (rx==1){
+//			GPIOA->MODER |= GPIO_MODER_MODER10_0;
+//			HAL_GPIO_WritePin(p1_GPIO_Port, p1_Pin, GPIO_PIN_SET);
+//			HAL_Delay(500);
+//			GPIOA->MODER &= ~(GPIO_MODER_MODER10);
+//		  HAL_Delay(500);
+//		}}
+//		if (rx==19) {
+//			GPIOA->MODER |= GPIO_MODER_MODER6_0;
+//			HAL_GPIO_WritePin(p19_GPIO_Port, p19_Pin, GPIO_PIN_SET);
+//			GPIOA->MODER &= ~(GPIO_MODER_MODER8);
+////			HAL_GPIO_WritePin(p3_GPIO_Port, p3_Pin, GPIO_PIN_SET);
+//			GPIOA->MODER &= ~(GPIO_MODER_MODER10);
+////			HAL_GPIO_WritePin(p1_GPIO_Port, p1_Pin, GPIO_PIN_SET);
+//		}
+		
+		
+		
+		
+//		if (rx==1){
+//		GPIOB->MODER &= ~(GPIO_MODER_MODER4);
+//		GPIOB->MODER &= ~(GPIO_MODER_MODER3);
+//		GPIOB->MODER &= ~(GPIO_MODER_MODER5);
+//		GPIOA->MODER &= ~(GPIO_MODER_MODER10);
+//		}
+////		HAL_Delay(1000);
+//		if (rx==0) {
+//		GPIOB->MODER |= GPIO_MODER_MODER4_0;
+//		GPIOB->MODER |= GPIO_MODER_MODER3_0;
+//		GPIOB->MODER |= GPIO_MODER_MODER5_0;
+//		GPIOA->MODER |= GPIO_MODER_MODER10_0;
+//		HAL_GPIO_WritePin(GPIOB,GPIO_PIN_4,GPIO_PIN_SET);
+//		HAL_GPIO_WritePin(GPIOB,GPIO_PIN_3,GPIO_PIN_SET);
+//		HAL_GPIO_WritePin(GPIOB,GPIO_PIN_5,GPIO_PIN_SET);
+//		HAL_GPIO_WritePin(GPIOA,GPIO_PIN_10,GPIO_PIN_SET);
+//		}	
+////		HAL_Delay(1000);
+//		if (rx==2) {
+//		GPIOB->MODER |= GPIO_MODER_MODER4_0;
+//		GPIOB->MODER |= GPIO_MODER_MODER3_0;
+//		GPIOB->MODER |= GPIO_MODER_MODER5_0;
+//		GPIOA->MODER |= GPIO_MODER_MODER10_0;
+//		HAL_GPIO_WritePin(GPIOB,GPIO_PIN_4,GPIO_PIN_RESET);
+//		HAL_GPIO_WritePin(GPIOB,GPIO_PIN_3,GPIO_PIN_RESET);
+//		HAL_GPIO_WritePin(GPIOB,GPIO_PIN_5,GPIO_PIN_RESET);
+//		HAL_GPIO_WritePin(GPIOA,GPIO_PIN_10,GPIO_PIN_RESET);
+//		}	
+//		HAL_Delay(1000);
+	
+//		if (rx==1){
+//		HAL_GPIO_WritePin(GPIOB,GPIO_PIN_3,GPIO_PIN_SET);
+//		HAL_GPIO_WritePin(GPIOB,GPIO_PIN_4,GPIO_PIN_SET);
+//		HAL_GPIO_WritePin(GPIOB,GPIO_PIN_5,GPIO_PIN_SET);
+//		HAL_GPIO_WritePin(GPIOA,GPIO_PIN_10,GPIO_PIN_SET);
+//		}
+//		if (rx==0){
+//		HAL_GPIO_WritePin(GPIOB,GPIO_PIN_3,GPIO_PIN_RESET);
+//		HAL_GPIO_WritePin(GPIOB,GPIO_PIN_4,GPIO_PIN_RESET);
+//		HAL_GPIO_WritePin(GPIOB,GPIO_PIN_5,GPIO_PIN_RESET);
+//		HAL_GPIO_WritePin(GPIOA,GPIO_PIN_10,GPIO_PIN_RESET);
+//		}
+//		HAL_UART_Receive_IT(&huart3, &rx, 1);
+//		if(rx>11){
+//		HAL_UART_Transmit_IT(&huart3, buf, 1);
+//		rx=0;
+//		}
+//		else {HAL_UART_Transmit_IT(&huart3, buf1, 1);
+//		rx=0;
+//		}
+//		HAL_Delay(500);
+  }
+  /* USER CODE END 3 */
+}
+
+/**
+  * @brief System Clock Configuration
+  * @retval None
+  */
+void SystemClock_Config(void)
+{
+  RCC_OscInitTypeDef RCC_OscInitStruct = {0};
+  RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
+
+  /** Configure the main internal regulator output voltage
+  */
+  __HAL_RCC_PWR_CLK_ENABLE();
+  __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE3);
+  /** Initializes the RCC Oscillators according to the specified parameters
+  * in the RCC_OscInitTypeDef structure.
+  */
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
+  RCC_OscInitStruct.HSIState = RCC_HSI_ON;
+  RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
+  RCC_OscInitStruct.PLL.PLLState = RCC_PLL_NONE;
+  if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /** Initializes the CPU, AHB and APB buses clocks
+  */
+  RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
+                              |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
+  RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_HSI;
+  RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
+  RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
+  RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
+
+  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_0) != HAL_OK)
+  {
+    Error_Handler();
+  }
+}
+
+/**
+  * @brief USART1 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_USART1_UART_Init(void)
+{
+
+  /* USER CODE BEGIN USART1_Init 0 */
+
+  /* USER CODE END USART1_Init 0 */
+
+  /* USER CODE BEGIN USART1_Init 1 */
+
+  /* USER CODE END USART1_Init 1 */
+  huart1.Instance = USART1;
+  huart1.Init.BaudRate = 9600;
+  huart1.Init.WordLength = UART_WORDLENGTH_8B;
+  huart1.Init.StopBits = UART_STOPBITS_1;
+  huart1.Init.Parity = UART_PARITY_NONE;
+  huart1.Init.Mode = UART_MODE_TX_RX;
+  huart1.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+  huart1.Init.OverSampling = UART_OVERSAMPLING_16;
+  if (HAL_UART_Init(&huart1) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN USART1_Init 2 */
+
+  /* USER CODE END USART1_Init 2 */
+
+}
+
+/**
+  * @brief USART3 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_USART3_UART_Init(void)
+{
+
+  /* USER CODE BEGIN USART3_Init 0 */
+
+  /* USER CODE END USART3_Init 0 */
+
+  /* USER CODE BEGIN USART3_Init 1 */
+
+  /* USER CODE END USART3_Init 1 */
+  huart3.Instance = USART3;
+  huart3.Init.BaudRate = 9600;
+  huart3.Init.WordLength = UART_WORDLENGTH_8B;
+  huart3.Init.StopBits = UART_STOPBITS_1;
+  huart3.Init.Parity = UART_PARITY_NONE;
+  huart3.Init.Mode = UART_MODE_TX_RX;
+  huart3.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+  huart3.Init.OverSampling = UART_OVERSAMPLING_16;
+  if (HAL_UART_Init(&huart3) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN USART3_Init 2 */
+
+  /* USER CODE END USART3_Init 2 */
+
+}
+
+/**
+  * Enable DMA controller clock
+  */
+static void MX_DMA_Init(void)
+{
+
+  /* DMA controller clock enable */
+  __HAL_RCC_DMA1_CLK_ENABLE();
+  __HAL_RCC_DMA2_CLK_ENABLE();
+
+  /* DMA interrupt init */
+  /* DMA1_Stream1_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(DMA1_Stream1_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(DMA1_Stream1_IRQn);
+  /* DMA1_Stream3_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(DMA1_Stream3_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(DMA1_Stream3_IRQn);
+  /* DMA2_Stream2_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(DMA2_Stream2_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(DMA2_Stream2_IRQn);
+  /* DMA2_Stream7_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(DMA2_Stream7_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(DMA2_Stream7_IRQn);
+
+}
+
+/**
+  * @brief GPIO Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_GPIO_Init(void)
+{
+  GPIO_InitTypeDef GPIO_InitStruct = {0};
+
+  /* GPIO Ports Clock Enable */
+  __HAL_RCC_GPIOH_CLK_ENABLE();
+  __HAL_RCC_GPIOC_CLK_ENABLE();
+  __HAL_RCC_GPIOA_CLK_ENABLE();
+  __HAL_RCC_GPIOB_CLK_ENABLE();
+
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(GPIOC, p60_Pin|p58_Pin|p64_Pin|p62_Pin
+                          |p49_Pin|p32_Pin|p14_Pin|p30_Pin
+                          |p28_Pin|p1_Pin|p12_Pin, GPIO_PIN_RESET);
+
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(GPIOA, p51_Pin|p53_Pin|p21_Pin|p19_Pin
+                          |p17_Pin|p10_Pin|p35_Pin|p33_Pin, GPIO_PIN_RESET);
+
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(GPIOB, p55_Pin|p42_Pin|p39_Pin|p37_Pin
+                          |p48_Pin|p46_Pin|p44_Pin|p3_Pin
+                          |p7_Pin|p5_Pin|p16_Pin|p26_Pin
+                          |p23_Pin, GPIO_PIN_RESET);
+
+  /*Configure GPIO pins : p60_Pin p58_Pin p64_Pin p62_Pin
+                           p49_Pin p32_Pin p14_Pin p30_Pin
+                           p28_Pin p1_Pin p12_Pin */
+  GPIO_InitStruct.Pin = p60_Pin|p58_Pin|p64_Pin|p62_Pin
+                          |p49_Pin|p32_Pin|p14_Pin|p30_Pin
+                          |p28_Pin|p1_Pin|p12_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : p51_Pin p53_Pin p21_Pin p19_Pin
+                           p17_Pin p10_Pin p35_Pin p33_Pin */
+  GPIO_InitStruct.Pin = p51_Pin|p53_Pin|p21_Pin|p19_Pin
+                          |p17_Pin|p10_Pin|p35_Pin|p33_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : p55_Pin p42_Pin p39_Pin p37_Pin
+                           p48_Pin p46_Pin p44_Pin p3_Pin
+                           p7_Pin p5_Pin p16_Pin p26_Pin
+                           p23_Pin */
+  GPIO_InitStruct.Pin = p55_Pin|p42_Pin|p39_Pin|p37_Pin
+                          |p48_Pin|p46_Pin|p44_Pin|p3_Pin
+                          |p7_Pin|p5_Pin|p16_Pin|p26_Pin
+                          |p23_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
+}
+
+/* USER CODE BEGIN 4 */
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
+{
+  /* Prevent unused argument(s) compilation warning */
+  UNUSED(huart);
+  /* NOTE: This function should not be modified, when the callback is needed,
+           the HAL_UART_TxCpltCallback could be implemented in the user file
+   */
+//	HAL_Delay(1);
+//	HAL_UART_Transmit(&huart3, buf1, 1, 10);
+//	rx=0;
+//	buf1[0]=12;
+}
+/* USER CODE END 4 */
+
+/**
+  * @brief  This function is executed in case of error occurrence.
+  * @retval None
+  */
+void Error_Handler(void)
+{
+  /* USER CODE BEGIN Error_Handler_Debug */
+  /* User can add his own implementation to report the HAL error return state */
+  __disable_irq();
+  while (1)
+  {
+  }
+  /* USER CODE END Error_Handler_Debug */
+}
+
+#ifdef  USE_FULL_ASSERT
+/**
+  * @brief  Reports the name of the source file and the source line number
+  *         where the assert_param error has occurred.
+  * @param  file: pointer to the source file name
+  * @param  line: assert_param error line source number
+  * @retval None
+  */
+void assert_failed(uint8_t *file, uint32_t line)
+{
+  /* USER CODE BEGIN 6 */
+  /* User can add his own implementation to report the file name and line number,
+     ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
+  /* USER CODE END 6 */
+}
+#endif /* USE_FULL_ASSERT */
+
+/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
