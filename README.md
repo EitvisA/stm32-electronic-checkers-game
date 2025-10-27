@@ -9,7 +9,7 @@ Interactive LED checkers game built with STM32 microcontroller and Bluetooth con
 - Modular and maintainable C code structure
 
 ## Technical Overview
-- **Microcontroller:** STM32F446 Nucleo (HAL-based)
+- **Microcontroller:** STM32F446 Nucleo
 - **Language:** C
 - **Communication:** 
   - STM32 ↔ HC-05 Bluetooth module via UART with DMA
