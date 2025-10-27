@@ -45,13 +45,13 @@ void ledOff(int pin){
 
 // Turns the red LED on
 void redOn(int pin){
-		led[pin].port->MODER &= ~(0x1<<(led[pin].pin_number*2));
+		led[pin].port->MODER |= (0x1<<((led[pin].pin_number)*2));
 		HAL_GPIO_WritePin(led[pin].port, led[pin].pin, GPIO_PIN_SET);
 }
 
 // Turns the blue LED on
 void blueOn(int pin){
-		led[pin].port->MODER &= ~(0x1<<(led[pin].pin_number*2));
+		led[pin].port->MODER |= (0x1<<((led[pin].pin_number)*2));
 		HAL_GPIO_WritePin(led[pin].port, led[pin].pin, GPIO_PIN_RESET);
 }
 
@@ -85,24 +85,25 @@ int checkState(int pin){
 
 // Initializes the starting state of all LEDs
 void ledInit(void) {
-    int redPins[]  = {1, 3, 5, 7, 10, 12, 14, 16, 17, 19, 21, 23};
-    int bluePins[] = {42, 44, 46, 48, 49, 51, 53, 55, 58, 60, 62, 64};
-    int offPins[]  = {26, 28, 30, 32, 33, 35, 37, 39};
+    int redPins[]  = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};
+    int bluePins[] = {21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32};
+    int offPins[]  = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32};
+		
+		// Turn off all LEDs //
+    for (int i = 0; i < sizeof(offPins)/sizeof(offPins[0]); i++) {
+        ledOff(offPins[i]);
+    }
+		HAL_Delay(1000);
 		
 		// Turn on red LEDs //
     for (int i = 0; i < sizeof(redPins)/sizeof(redPins[0]); i++) {
         redOn(redPins[i]);
-				HAL_Delay(100);
+				HAL_Delay(200);
     }
 		
 		// Turn on blue LEDs //
     for (int i = 0; i < sizeof(bluePins)/sizeof(bluePins[0]); i++) {
         blueOn(bluePins[i]);
-				HAL_Delay(100);
-    }
-		
-		// Turn off the rest of LEDs //
-    for (int i = 0; i < sizeof(offPins)/sizeof(offPins[0]); i++) {
-        ledOff(offPins[i]);
+				HAL_Delay(200);
     }
 }

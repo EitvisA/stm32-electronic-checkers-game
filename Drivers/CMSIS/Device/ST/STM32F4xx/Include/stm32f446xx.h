@@ -8101,11 +8101,13 @@ typedef struct
 #define GPIO_MODER_MODER3                GPIO_MODER_MODER3_Msk                 
 #define GPIO_MODER_MODER3_0              (0x1UL << GPIO_MODER_MODER3_Pos)       /*!< 0x00000040 */
 #define GPIO_MODER_MODER3_1              (0x2UL << GPIO_MODER_MODER3_Pos)       /*!< 0x00000080 */
+
 #define GPIO_MODER_MODER4_Pos            (8U)                                  
 #define GPIO_MODER_MODER4_Msk            (0x3UL << GPIO_MODER_MODER4_Pos)       /*!< 0x00000300 */
 #define GPIO_MODER_MODER4                GPIO_MODER_MODER4_Msk                 
 #define GPIO_MODER_MODER4_0              (0x1UL << GPIO_MODER_MODER4_Pos)       /*!< 0x00000100 */
 #define GPIO_MODER_MODER4_1              (0x2UL << GPIO_MODER_MODER4_Pos)       /*!< 0x00000200 */
+
 #define GPIO_MODER_MODER5_Pos            (10U)                                 
 #define GPIO_MODER_MODER5_Msk            (0x3UL << GPIO_MODER_MODER5_Pos)       /*!< 0x00000C00 */
 #define GPIO_MODER_MODER5                GPIO_MODER_MODER5_Msk                 

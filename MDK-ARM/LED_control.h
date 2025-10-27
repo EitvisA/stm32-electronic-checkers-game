@@ -16,5 +16,5 @@ void blueOn(int pin);
 void redBlink(int pin);
 void blueBlink(int pin);
 int checkState(int pin);
-
+void ledInit(void);
 #endif

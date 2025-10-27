@@ -101,7 +101,7 @@ int main(void)
   MX_USART3_UART_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
-	
+	ledInit();
 	HAL_UART_Receive_DMA(&huart1,&newVal,1);
 	HAL_UART_Receive_DMA(&huart3,&newVal,1);
 	
